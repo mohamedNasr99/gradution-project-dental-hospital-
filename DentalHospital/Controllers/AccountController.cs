@@ -13,7 +13,6 @@ namespace DentalHospital.Controllers
 {
     [Route("api/[controller]/")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
     public class AccountController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> userManager;
@@ -26,6 +25,7 @@ namespace DentalHospital.Controllers
         }
 
         [HttpPost("StudentProfessorRegister")]   // Register for Student and Professor
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> StudentProfessorRegister(StudentProfessorRegisterDTO studentProfessorRegisterDTO)
         {
             if(ModelState.IsValid == true)
@@ -61,6 +61,7 @@ namespace DentalHospital.Controllers
 
 
         [HttpPost("ReceptionistRegister")]   //Register for Receptionist
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ReceptionistRegister(ReceptionistRegisterDTO receptionistRegisterDTO)
         {
             if (ModelState.IsValid == true)
@@ -92,7 +93,6 @@ namespace DentalHospital.Controllers
 
 
         [HttpPost("Login")]
-        [Authorize(Roles = "Admin, Student, Professor, Receptionist")]
         public async Task<IActionResult> Login(LoginDTO loginDTO)
         {
             if (ModelState.IsValid == true)
@@ -145,7 +145,7 @@ namespace DentalHospital.Controllers
 
 
         [HttpPost("Logout")]   //تسجيل الخروج 
-        [Authorize(Roles ="Admin, Student, Professor, Receptionist")]
+        [Authorize]
         public IActionResult Logout()
         {
             return Ok("تمام طلعت");

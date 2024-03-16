@@ -72,3 +72,4 @@ D:\DentalHospital\DentalHospital\obj\Debug\net6.0\DentalHospital.genruntimeconfi
 D:\DentalHospital\DentalHospital\obj\Debug\net6.0\ref\DentalHospital.dll
 D:\DentalHospital\DentalHospital\obj\Debug\net6.0\DentalHo.0ABC9CAF.Up2Date
 D:\DentalHospital\DentalHospital\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\DentalHospital\DentalHospital\obj\Debug\net6.0\DentalHospital.sourcelink.json

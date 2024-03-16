@@ -13,7 +13,7 @@ namespace DentalHospital.Controllers
 {
     [Route("api/[controller]/")]
     [ApiController]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AccountController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> userManager;
@@ -92,7 +92,7 @@ namespace DentalHospital.Controllers
 
 
         [HttpPost("Login")]
-        //[Authorize(Roles = "Admin, Student, Professor, Receptionist, SuperAdmin")]
+        [Authorize(Roles = "Admin, Student, Professor, Receptionist")]
         public async Task<IActionResult> Login(LoginDTO loginDTO)
         {
             if (ModelState.IsValid == true)

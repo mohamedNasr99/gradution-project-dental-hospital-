@@ -4,6 +4,7 @@ using DentalHospital.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DentalHospital.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240320154151_updateDatabase")]
+    partial class updateDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -228,12 +230,9 @@ namespace DentalHospital.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("DATE");
 
-                    b.Property<string>("Clinic")
+                    b.Property<string>("ClinicId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Gender")
                         .IsRequired()
@@ -255,6 +254,8 @@ namespace DentalHospital.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Code");
+
+                    b.HasIndex("ClinicId");
 
                     b.ToTable("Patients");
                 });
@@ -541,6 +542,17 @@ namespace DentalHospital.Migrations
                     b.Navigation("Student");
                 });
 
+            modelBuilder.Entity("DentalHospital.Models.Patient", b =>
+                {
+                    b.HasOne("DentalHospital.Models.Clinic", "Clinic")
+                        .WithMany("Patients")
+                        .HasForeignKey("ClinicId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Clinic");
+                });
+
             modelBuilder.Entity("DentalHospital.Models.Professor", b =>
                 {
                     b.HasOne("DentalHospital.Models.Admin", "Admin")
@@ -650,6 +662,8 @@ namespace DentalHospital.Migrations
 
             modelBuilder.Entity("DentalHospital.Models.Clinic", b =>
                 {
+                    b.Navigation("Patients");
+
                     b.Navigation("Professors");
 
                     b.Navigation("Students");

@@ -2,9 +2,8 @@
 
 namespace DentalHospital.DTOs
 {
-    public class StudentProfessorRegisterDTO
+    public class AddingAdminDTO
     {
-        [Required]
         public string UserName { get; set; } = string.Empty;
         [Required]
         [DataType(DataType.EmailAddress)]
@@ -14,13 +13,8 @@ namespace DentalHospital.DTOs
         public string Password { get; set; } = string.Empty;
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm Password")]
         [Compare("Password")]
+        [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; } = string.Empty;
-        [Required]
-        public string Clinic { get; set; } = string.Empty;
-        [Required]
-        public string Role { get; set; } = string.Empty;
-        public int Round { get; set; }
     }
 }

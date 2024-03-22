@@ -1,4 +1,5 @@
 using DentalHospital.Data;
+using DentalHospital.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -14,8 +15,6 @@ namespace DentalHospital
             
             var builder = WebApplication.CreateBuilder(args);
 
-            var configuration = builder.Configuration;
-
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -23,7 +22,9 @@ namespace DentalHospital
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
@@ -38,15 +39,25 @@ namespace DentalHospital
             {
                 options.SaveToken = true;
                 options.RequireHttpsMetadata = false;
+                options.IncludeErrorDetails = true;
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuer = true,
-                    ValidIssuer = configuration["JWT:Issuer"],
                     ValidateAudience = true,
-                    ValidAudience = configuration["JWT:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:key"]))
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = builder.Configuration["JWT:Issuer"],
+                    ValidAudience = builder.Configuration["JWT:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
                 };
             });
+
+            builder.Services.AddScoped<IReceptionistService, ReceptionistService>();
+            builder.Services.AddScoped<IAdminService, AdminService>();
+            builder.Services.AddScoped<IPatientService, PatientService>();
+
+            builder.Services.AddMemoryCache();
+            builder.Services.AddDistributedMemoryCache();
 
             var app = builder.Build();
 
@@ -56,7 +67,11 @@ namespace DentalHospital
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseRouting();
 
+            app.UseCors();
+
+            app.UseAuthorization();
             app.UseAuthorization();
 
 

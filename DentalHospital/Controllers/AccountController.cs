@@ -1,9 +1,11 @@
 ﻿using DentalHospital.Data;
 using DentalHospital.DTOs;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -17,22 +19,25 @@ namespace DentalHospital.Controllers
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IConfiguration configuration;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
-        public AccountController(UserManager<ApplicationUser> userManager, IConfiguration configuration)
+        public AccountController(UserManager<ApplicationUser> userManager, 
+            IConfiguration configuration, SignInManager<ApplicationUser> signInManager)
         {
             this.userManager = userManager;
             this.configuration = configuration;
+            this.signInManager = signInManager;
         }
 
         [HttpPost("StudentProfessorRegister")]   // Register for Student and Professor
-        [Authorize(Roles ="Admin")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles ="Admin")]
         public async Task<IActionResult> StudentProfessorRegister(StudentProfessorRegisterDTO studentProfessorRegisterDTO)
         {
             if(ModelState.IsValid == true)
             {
                 ApplicationUser user = new ApplicationUser();
 
-                user.UserName = studentProfessorRegisterDTO.Name;
+                user.UserName = studentProfessorRegisterDTO.UserName;
                 user.Email = studentProfessorRegisterDTO.Email;
                 user.Clinic = studentProfessorRegisterDTO.Clinic;
                 user.Role = studentProfessorRegisterDTO.Role;
@@ -61,14 +66,14 @@ namespace DentalHospital.Controllers
 
 
         [HttpPost("ReceptionistRegister")]   //Register for Receptionist
-        [Authorize(Roles = "Admin")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<IActionResult> ReceptionistRegister(ReceptionistRegisterDTO receptionistRegisterDTO)
         {
             if (ModelState.IsValid == true)
             {
                 ApplicationUser user = new ApplicationUser();
 
-                user.UserName = receptionistRegisterDTO.Name;
+                user.UserName = receptionistRegisterDTO.UserName;
                 user.Email = receptionistRegisterDTO.Email;
 
                 IdentityResult result = await userManager.CreateAsync(user, receptionistRegisterDTO.Password);
@@ -97,7 +102,7 @@ namespace DentalHospital.Controllers
         {
             if (ModelState.IsValid == true)
             {
-               ApplicationUser user = await userManager.FindByEmailAsync(loginDTO.Email);
+               ApplicationUser user = await userManager.FindByNameAsync(loginDTO.UserName);
 
                 if (user != null)
                 {
@@ -121,8 +126,8 @@ namespace DentalHospital.Controllers
                     if(isFound == true)
                     {
                         JwtSecurityToken token = new JwtSecurityToken(
-                                issuer: configuration["jWT:Issuer"],
-                                audience: configuration["JWT:Audiance"],
+                                issuer: configuration["JWT:Issuer"],
+                                audience: configuration["JWT:Audience"],
                                 claims: claims,
                                 expires: DateTime.Now.AddMonths(1),
                                 signingCredentials: credentials
@@ -144,13 +149,48 @@ namespace DentalHospital.Controllers
         }
 
 
-        [HttpPost("Logout")]   //تسجيل الخروج 
-        [Authorize]
+        [HttpPost("Logout")]   //in front end , we will remove token from client (browzer) 
+        [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Logout()
         {
             return Ok("تمام طلعت");
         }
 
+        [HttpPost("ChangePassword")]
+        [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> ChangePassword(ChangePasswordDTO changePasswordDTO)
+        {
+            if (ModelState.IsValid == true)
+            {
+                var user = await userManager.GetUserAsync(User);
+
+                if (user == null)
+                {
+                    return BadRequest("User not found.");
+                }
+
+                IdentityResult result = await userManager.ChangePasswordAsync(user, changePasswordDTO.CurrentPassword, 
+                    changePasswordDTO.NewPassword);
+
+                if (!result.Succeeded)
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+
+                    return BadRequest(ModelState);
+                }
+
+                await signInManager.RefreshSignInAsync(user);
+
+                return Ok("Password changed successfully.");
+
+            }
+
+            return BadRequest(ModelState);
+        }
+        
 
     }
 }

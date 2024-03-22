@@ -2,20 +2,20 @@
 
 namespace DentalHospital.DTOs
 {
-    public class ReceptionistRegisterDTO
+    public class ChangePasswordDTO
     {
         [Required]
-        public string UserName { get; set; } = string.Empty;
-        [Required]
-        [DataType(DataType.EmailAddress)]
-        public string Email { get; set; } = string.Empty;
+        [DataType(DataType.Password)]
+        [Display(Name = "Current Password")]
+        public string CurrentPassword { get; set; } = string.Empty;
         [Required]
         [DataType(DataType.Password)]
-        public string Password { get; set; } = string.Empty;
+        [Display(Name = "New Password")]
+        public string NewPassword { get; set; } = string.Empty;
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm Password")]
-        [Compare("Password")]
         public string ConfirmPassword { get; set; } = string.Empty;
+
     }
 }

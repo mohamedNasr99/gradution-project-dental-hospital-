@@ -24,6 +24,8 @@ namespace DentalHospital.Data
         public virtual DbSet<Receptionist>? Receptionists { get; set; }
         public virtual DbSet<Session>? Sessions { get; set; }
         public virtual DbSet<Student>? Students { get; set; }
+        public virtual DbSet<Cases>? Cases { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -56,12 +58,6 @@ namespace DentalHospital.Data
                 .IsRequired();
             });
 
-            modelBuilder.Entity<MedicalReport>()
-                .HasOne(e => e.Clinic)
-                .WithMany(e => e.MedicalReports)
-                .HasForeignKey(e => e.ClinicId)
-                .OnDelete(DeleteBehavior.Restrict);
-
             modelBuilder.Entity<MedicalReport>().HasKey(c => c.Id);
 
             modelBuilder.Entity<MedicalReport>()
@@ -70,12 +66,12 @@ namespace DentalHospital.Data
                 .HasForeignKey(e => e.StudentSSN)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Patient>().HasKey(p => p.SSN);
+            modelBuilder.Entity<Patient>().HasKey(p => p.Code);
 
             modelBuilder.Entity<MedicalReport>()
                 .HasOne(e => e.Patient)
                 .WithMany(e => e.MedicalReports)
-                .HasForeignKey(e => e.PatientSSN)
+                .HasForeignKey(e => e.PatientCode)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Session>().HasKey(s => s.Id);
@@ -144,6 +140,12 @@ namespace DentalHospital.Data
             {
                 entity.Property(a => a.BirthDate)
                 .HasColumnType("DATE");
+            });
+
+            modelBuilder.Entity<Patient>(entity =>
+            {
+                entity.Property(a => a.Code)
+                .ValueGeneratedNever();
             });
         }
 

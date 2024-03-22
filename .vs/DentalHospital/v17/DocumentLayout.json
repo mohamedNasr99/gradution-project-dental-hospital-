@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "D:\\DentalHospital\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|d:\\dentalhospital\\dentalhospital\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|solutionrelative:dentalhospital\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|d:\\dentalhospital\\dentalhospital\\services\\receptionistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|solutionrelative:dentalhospital\\services\\receptionistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|d:\\dentalhospital\\dentalhospital\\services\\patientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|solutionrelative:dentalhospital\\services\\patientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +23,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Controllers\\AccountController.cs",
-              "RelativeDocumentMoniker": "DentalHospital\\Controllers\\AccountController.cs",
-              "ToolTip": "D:\\DentalHospital\\DentalHospital\\Controllers\\AccountController.cs",
-              "RelativeToolTip": "DentalHospital\\Controllers\\AccountController.cs",
-              "ViewState": "AQIAAF4AAAAAAAAAAAAcwD8AAAAkAAAA",
+              "Title": "ReceptionistService.cs",
+              "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Services\\ReceptionistService.cs",
+              "RelativeDocumentMoniker": "DentalHospital\\Services\\ReceptionistService.cs",
+              "ToolTip": "D:\\DentalHospital\\DentalHospital\\Services\\ReceptionistService.cs",
+              "RelativeToolTip": "DentalHospital\\Services\\ReceptionistService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-16T23:12:12.265Z",
+              "WhenOpened": "2024-03-22T12:18:05.197Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PatientService.cs",
+              "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Services\\PatientService.cs",
+              "RelativeDocumentMoniker": "DentalHospital\\Services\\PatientService.cs",
+              "ToolTip": "D:\\DentalHospital\\DentalHospital\\Services\\PatientService.cs",
+              "RelativeToolTip": "DentalHospital\\Services\\PatientService.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAQwCYAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-21T15:30:53.344Z",
               "EditorCaption": ""
             }
           ]

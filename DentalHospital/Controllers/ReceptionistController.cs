@@ -18,7 +18,7 @@ namespace DentalHospital.Controllers
             this.receptionistService = receptionistService;
         }
 
-        [HttpPost("CheckPay")]
+        [HttpPatch("CheckPay")]
         public IActionResult CheckPay(string code)
         {
            bool result = receptionistService.CheckPay(code);

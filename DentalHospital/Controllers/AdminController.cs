@@ -18,7 +18,7 @@ namespace DentalHospital.Controllers
             this.adminService = adminService;
         }
 
-        [HttpPost("AddPermissibleCases")]
+        [HttpPut("AddPermissibleCases")]
         public IActionResult AddPermissibleCases(int Cases)
         {
             int result = adminService.AddPermissibleCases(Cases);

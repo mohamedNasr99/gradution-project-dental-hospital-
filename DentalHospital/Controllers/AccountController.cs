@@ -1,5 +1,6 @@
 ﻿using DentalHospital.Data;
 using DentalHospital.DTOs;
+using DentalHospital.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -20,13 +21,15 @@ namespace DentalHospital.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IConfiguration configuration;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly ApplicationDbContext dbContext;
 
         public AccountController(UserManager<ApplicationUser> userManager, 
-            IConfiguration configuration, SignInManager<ApplicationUser> signInManager)
+            IConfiguration configuration, SignInManager<ApplicationUser> signInManager, ApplicationDbContext dbContext)
         {
             this.userManager = userManager;
             this.configuration = configuration;
             this.signInManager = signInManager;
+            this.dbContext = dbContext;
         }
 
         [HttpPost("StudentProfessorRegister")]   // Register for Student and Professor
@@ -43,7 +46,37 @@ namespace DentalHospital.Controllers
                 user.Role = studentProfessorRegisterDTO.Role;
                 user.Round = studentProfessorRegisterDTO.Round;
 
-               IdentityResult result = await userManager.CreateAsync(user, studentProfessorRegisterDTO.Password);
+                if (studentProfessorRegisterDTO.Role == "Student")
+                {
+                    Student student = new Student();
+                    student.SSN = studentProfessorRegisterDTO.SSN;
+                    student.Name = studentProfessorRegisterDTO .Name;
+                    student.PhoneNumber = studentProfessorRegisterDTO.Phone;
+                    student.BirthDate = studentProfessorRegisterDTO.BirthDate;
+                    student.Gender = studentProfessorRegisterDTO.Gender;
+
+                    await dbContext.Students.AddAsync(student);
+                    await dbContext.SaveChangesAsync();
+                }
+                else
+                {
+                    Professor professor = new Professor();
+                    professor.SSN = studentProfessorRegisterDTO.SSN;
+                    professor.Name = studentProfessorRegisterDTO.Name;
+                    professor.PhoneNumber = studentProfessorRegisterDTO.Phone;
+                    professor.BirthDate = studentProfessorRegisterDTO.BirthDate;
+                    professor.Gender = studentProfessorRegisterDTO.Gender;
+
+                    if (professor != null)
+                    {
+                        await dbContext.Professors.AddAsync(professor);
+                        await dbContext.SaveChangesAsync();
+                    }
+
+                    
+                }
+
+                IdentityResult result = await userManager.CreateAsync(user, studentProfessorRegisterDTO.Password);
 
                 IdentityResult roleResult = await userManager.AddToRoleAsync(user, user.Role);
 
@@ -75,6 +108,20 @@ namespace DentalHospital.Controllers
 
                 user.UserName = receptionistRegisterDTO.UserName;
                 user.Email = receptionistRegisterDTO.Email;
+
+                Receptionist receptionist = new Receptionist();
+                receptionist.Name = receptionistRegisterDTO.Name;
+                receptionist.PhoneNumber = receptionistRegisterDTO.Phone;
+                receptionist.BirthDate = receptionistRegisterDTO.BirthDate;
+                receptionist.SSN = receptionistRegisterDTO.SSN;
+
+                if (receptionist != null)
+                {
+                    await dbContext.Receptionists.AddAsync(receptionist);
+                    await dbContext.SaveChangesAsync();
+                }
+
+                
 
                 IdentityResult result = await userManager.CreateAsync(user, receptionistRegisterDTO.Password);
 

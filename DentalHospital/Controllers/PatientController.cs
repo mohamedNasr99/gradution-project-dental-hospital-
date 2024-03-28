@@ -1,4 +1,5 @@
 ﻿using DentalHospital.DTOs;
+using DentalHospital.Models;
 using DentalHospital.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,8 +22,13 @@ namespace DentalHospital.Controllers
         {
             if(ModelState.IsValid == true)
             {
-                var result = await patientService.Reservation(reservationDTO);
-                return Ok(result);
+                Patient? patient = await patientService.Reservation(reservationDTO);
+
+                if (patient != null)
+                {
+                    return Ok(patient.Code);
+                }
+                return BadRequest("قد يكون مفيش حجز انهردا او العدد اكتمل");
             }
 
             return BadRequest(ModelState);

@@ -15,63 +15,39 @@ namespace DentalHospital.Services
             this.dbContext = dbContext;
         }
 
-        public async Task<object> Reservation(ReservationDTO reservationDTO)
+        public async Task<Patient?> Reservation(ReservationDTO reservationDTO)
         {
             string code = GenerateUniqueCode();
 
-            if (dbContext == null)
+            
+            Cases? CaseObject = await dbContext.Cases.FirstOrDefaultAsync();
+
+            if(CaseObject == null || CaseObject.PermissibleCases == 0)
             {
-                return new
-                {
-                    Message = "DbContext is null."
-                };
+                return null;
             }
 
-            if (reservationDTO != null)
+            int ReservationCount = await dbContext.Patients.CountAsync(p => p.CreatedAt.Day == DateTime.Now.Day);
+
+            if (ReservationCount > CaseObject.PermissibleCases)
             {
-                Cases? CaseObject = await dbContext.Cases.FirstOrDefaultAsync();
-
-                if(CaseObject == null || CaseObject.PermissibleCases == 0)
-                {
-                    return new 
-                    {
-                        Message = "There is no reservation today."
-                    };
-                }
-
-                int ReservationCount = await dbContext.Patients.CountAsync(p => p.CreatedAt.Day == DateTime.Now.Day);
-
-                if (ReservationCount > CaseObject.PermissibleCases)
-                {
-                    return new 
-                    {
-                        Message = "Reservation limit reached for today."
-                    };
-                }
-
-                Patient patient = new Patient();
-                patient.Name = reservationDTO.Name;
-                patient.SSN = reservationDTO.PatientSSN;
-                patient.BirthDate = reservationDTO.BirthDate;
-                patient.PhoneNumber = reservationDTO.PatientNumber;
-                patient.Gender = reservationDTO.Gender;
-                patient.CreatedAt = DateTime.Now;
-                patient.Code = code;
-
-                await dbContext.Patients.AddAsync(patient);
-                await dbContext.SaveChangesAsync();
-
-                return new
-                {
-                    Message = "Ok.",
-                    Code = patient.Code
-                };
+                return null;
             }
 
-            return new
-            {
-                Message = "ReservationDTO is null."
-            };
+            Patient patient = new Patient();
+            patient.Name = reservationDTO.Name;
+            patient.SSN = reservationDTO.PatientSSN;
+            patient.BirthDate = reservationDTO.BirthDate;
+            patient.PhoneNumber = reservationDTO.PatientNumber;
+            patient.Gender = reservationDTO.Gender;
+            patient.CreatedAt = DateTime.Now;
+            patient.Code = code;
+
+            await dbContext.Patients.AddAsync(patient);
+            await dbContext.SaveChangesAsync();
+
+            return patient;
+
         }
 
         private string GenerateUniqueCode()

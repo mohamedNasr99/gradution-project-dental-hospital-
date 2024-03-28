@@ -1,9 +1,10 @@
 ﻿using DentalHospital.DTOs;
+using DentalHospital.Models;
 
 namespace DentalHospital.Services
 {
     public interface IPatientService
     {
-        Task<object> Reservation(ReservationDTO reservationDTO);
+        Task<Patient?> Reservation(ReservationDTO reservationDTO);
     }
 }

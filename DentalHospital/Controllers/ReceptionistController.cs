@@ -30,5 +30,23 @@ namespace DentalHospital.Controllers
             
             return Ok("Ok, The payment process is successful.");
         }
+
+        [HttpGet("CheckCode")]
+        public async Task<IActionResult> CheckCode(string name)
+        {
+            if (name != null)
+            {
+                string? result = await receptionistService.CheckCode(name);
+
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+
+                return NotFound("هذا المريض غير مسجل علي الموقع");
+            }
+
+            return BadRequest("من فضلك ادخل الاسم رباعي");
+        }
     }
 }

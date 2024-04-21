@@ -14,23 +14,11 @@ namespace DentalHospital.Services
             this.dbContext = dbContext;
         }
 
-        public async Task<MedicalReport?> ViewDiagnosis(string code)
-        {
-            var medicalreport = await dbContext.MedicalReports.FirstOrDefaultAsync(m => m.PatientCode == code);
-            if (medicalreport != null)
-            {
-                return medicalreport;
-            }
-
-            return null;
-            
-        }
-
-        public async Task<int> AddTreatment(TreatmentDTO treatmentDTO)
+        public int AddTreatment(TreatmentDTO treatmentDTO)
         {
             if (treatmentDTO != null)
             {
-                var medicalreport = await dbContext.MedicalReports.FirstOrDefaultAsync(m => m.PatientCode == treatmentDTO.Code);
+                var medicalreport = dbContext.MedicalReports.FirstOrDefault(m => m.Code == treatmentDTO.Code);
 
                 if (medicalreport == null)
                 {
@@ -39,9 +27,10 @@ namespace DentalHospital.Services
 
                 medicalreport.Description = treatmentDTO.Description;
                 medicalreport.Treatment = treatmentDTO.Treatment;
+                medicalreport.StudentSSN = treatmentDTO.StudentSSN;
 
-                await dbContext.AddAsync(medicalreport);
-                await dbContext.SaveChangesAsync();
+                 dbContext.Update(medicalreport);
+                 dbContext.SaveChanges();
 
                 return 1;
             }
@@ -49,40 +38,17 @@ namespace DentalHospital.Services
             return 0;
         }
 
-        public async Task<int> CheckCode(string code)
-        {
-            if (code != null)
-            {
-                Patient? patient = await dbContext.Patients.FirstOrDefaultAsync(p => p.Code == code);
-                if (patient == null)
-                {
-                    return 0;
-                }
-                else if(patient.IsPayed == true)
-                {
-                    return 1;
-                }
-                else if (patient.IsPayed == false)
-                {
-                    return 0;
-                }
-
-            }
-
-            return 0;
-        }
 
         public async Task<int> TreatmentInDiagnosis(TreatmentInDiagnosisDTO treatmentInDiagnosisDTO)
         {
-            MedicalReport medicalReport = new MedicalReport();
+            MedicalReport? medicalReport = await dbContext.MedicalReports.FirstOrDefaultAsync(m => m.Code == treatmentInDiagnosisDTO.Code);
 
-            medicalReport.PatientCode = treatmentInDiagnosisDTO.Code;
             medicalReport.MedicalHistory = treatmentInDiagnosisDTO.MedicalHistory;
             medicalReport.DentalHistory = treatmentInDiagnosisDTO.DentalHistory;
             medicalReport.Diagnosis = treatmentInDiagnosisDTO.Diagnosis;
 
-            await dbContext.MedicalReports.AddAsync(medicalReport);
-           int result = await dbContext.SaveChangesAsync();
+            dbContext.MedicalReports.Update(medicalReport);
+           int result = dbContext.SaveChanges();
 
             if (result == 1)
             {
@@ -91,17 +57,104 @@ namespace DentalHospital.Services
             return 0;
         }
 
-        public async Task<int> ConvertToClinic(ConvertToClinicDTO convertToClinicDTO)
+        public int ConvertToClinic(ConvertToClinicDTO convertToClinicDTO)
         {
-            Patient? patient = await dbContext.Patients.FirstOrDefaultAsync(p => p.Code ==  convertToClinicDTO.Code);
-            if (patient != null)
+            MedicalReport? report = dbContext.MedicalReports.FirstOrDefault(m => m.Code == convertToClinicDTO.Code);
+
+            if (report == null)
             {
-                patient.Clinic = convertToClinicDTO.ClinicName;
-                dbContext.Update(patient);
-                await dbContext.SaveChangesAsync();
+                return 0;
+            }
+
+            report.Clinic = convertToClinicDTO.ClinicName;
+
+            dbContext.Update(report);
+            dbContext.SaveChanges();
+
+            return 1;
+        }
+
+        public async Task<int> AddSession(SessionDTO sessionDTO)
+        {
+            Session session = new Session();
+            session.Treatment = sessionDTO.Treatment;
+            session.session = session.session;
+            session.MedicalReportCode = sessionDTO.MedicalReportCode;
+            session.Date = DateTime.Now;
+
+            await dbContext.Sessions.AddAsync(session);
+            int result = await dbContext.SaveChangesAsync();
+
+            if (result == 1)
+            {
                 return 1;
             }
+
             return 0;
         }
+
+        public async Task<IEnumerable<string>> Search(string name)
+        {
+            IQueryable<string> query = dbContext.Students.Select(s => s.Name);
+
+            query = query.Where(n => n.Contains(name));
+
+            return await query.ToListAsync();
+        }
+
+        public IEnumerable<string> Cases(string SSN)
+        {
+            IQueryable<MedicalReport> reports = dbContext.MedicalReports;
+
+            reports = reports.Where(m => m.StudentSSN == SSN);
+
+            return reports.Select(m => m.Code);
+        }
+
+        public async Task<CaseDTO> MedicalReport(string code)
+        {
+            var result = await dbContext.MedicalReports.FirstOrDefaultAsync(m => m.Code == code);
+
+            CaseDTO caseDTO = new CaseDTO();
+
+            caseDTO.Diagnosis = result.Diagnosis;
+            caseDTO.DentalHistory = result.DentalHistory;
+            caseDTO.Treatment = result.Treatment;
+            caseDTO.Description = result.Description;
+            caseDTO.MedicalHistory = result.MedicalHistory;
+
+            return caseDTO;
+        }
+
+        public IEnumerable<DateTime> SessionsDates(string MedicalCode)
+        {
+            var sessions = dbContext.Sessions.Where(s => s.MedicalReportCode == MedicalCode).ToList();
+
+            return sessions.Select(s => s.Date);
+        }
+
+        public async Task<SessionReturnDTO?> SessionData(DateTime date)
+        {
+            Session? session = await dbContext.Sessions.FirstOrDefaultAsync(s => s.Date == date);
+
+            if (session == null)
+            {
+                return null;
+            }
+
+            SessionReturnDTO sessionReturnDTO = new SessionReturnDTO();
+
+            sessionReturnDTO.Session = session.session;
+            sessionReturnDTO.Treatment = session.Treatment;
+
+            return sessionReturnDTO;
+        }
+
+        public async Task<IEnumerable<string>> clinics()
+        {
+            var clinics = await dbContext.Clinics.ToListAsync();
+            return clinics.Select(c => c.Name);
+        }
+
     }
 }

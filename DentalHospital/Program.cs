@@ -56,6 +56,7 @@ namespace DentalHospital
             builder.Services.AddScoped<IAdminService, AdminService>();
             builder.Services.AddScoped<IPatientService, PatientService>();
             builder.Services.AddScoped<IStudentService, StudentService>();
+            builder.Services.AddScoped<IProfessorService, ProfessorService>();
 
             builder.Services.AddMemoryCache();
             builder.Services.AddDistributedMemoryCache();

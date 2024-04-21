@@ -2,9 +2,11 @@
 {
     public class MedicalReport
     {
-        public string Id { get; set; } = string.Empty; 
+        public string Code { get; set; } = string.Empty; 
         public string PatientCode { get; set; } = string.Empty;
         public string StudentSSN { get; set; } = string.Empty;
+        public string Clinic { get; set; } = string.Empty;
+        public bool IsPayed { get; set; }
         public string MedicalHistory { get; set; } = string.Empty;   
         public string DentalHistory { get; set; } = string.Empty; 
         public string Diagnosis { get; set; } = string.Empty; 

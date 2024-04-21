@@ -4,7 +4,7 @@
     {
         public string SSN { get; set; } = string.Empty; 
         public string AdminSSN { get; set; } = string.Empty;
-        public string ClinicId { get; set; } = string.Empty; 
+        public string ClinicName { get; set; } = string.Empty; 
         public string Name { get; set; } = string.Empty; 
         public string Address { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty; 

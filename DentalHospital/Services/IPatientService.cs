@@ -5,6 +5,7 @@ namespace DentalHospital.Services
 {
     public interface IPatientService
     {
-        Task<Patient?> Reservation(ReservationDTO reservationDTO);
+        Task<Patient?> PatientRegister(ReservationDTO reservationDTO);
+        Task<MedicalReport?> Reservation(string SNN);
     }
 }

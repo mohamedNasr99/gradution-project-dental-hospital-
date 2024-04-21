@@ -1,5 +1,6 @@
 ﻿using DentalHospital.Data;
 using DentalHospital.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DentalHospital.Services
 {
@@ -13,15 +14,26 @@ namespace DentalHospital.Services
         }
         public bool CheckPay(string code)
         {
-            Patient? patient = dbContext?.Patients?.FirstOrDefault(p => p.Code == code);
-            if (patient == null)
+            MedicalReport? report = dbContext?.MedicalReports?.FirstOrDefault(p => p.Code == code);
+            if (report == null)
             {
                 return false;
             }
-            patient.IsPayed = true;
-            patient.Clinic = "Diagnosis";
+            report.IsPayed = true;
+            report.Clinic = "Diagnosis";
+            dbContext?.Update(report);
             dbContext?.SaveChanges();
             return true;
+        }
+
+        public async Task<string?> CheckCode(string name)
+        {
+            Patient? patient = await dbContext.Patients.FirstOrDefaultAsync(p => p.Name == name);
+            if (patient == null)
+            {
+                return null;
+            }
+            return patient.Code;
         }
     }
 }

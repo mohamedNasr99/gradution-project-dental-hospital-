@@ -49,7 +49,7 @@ namespace DentalHospital.Data
                 .IsRequired();
             });
 
-            modelBuilder.Entity<Clinic>().HasKey(c => c.Id);
+            modelBuilder.Entity<Clinic>().HasKey(c => c.Name);
 
             modelBuilder.Entity<Clinic>(entity =>
             {
@@ -58,7 +58,7 @@ namespace DentalHospital.Data
                 .IsRequired();
             });
 
-            modelBuilder.Entity<MedicalReport>().HasKey(c => c.Id);
+            modelBuilder.Entity<MedicalReport>().HasKey(c => c.Code);
 
             modelBuilder.Entity<MedicalReport>()
                 .HasOne(e => e.Student)
@@ -79,7 +79,7 @@ namespace DentalHospital.Data
             modelBuilder.Entity<Session>()
                 .HasOne(e => e.MedicalReport)
                 .WithMany(e => e.Sessions)
-                .HasForeignKey(e => e.MedicalReportId)
+                .HasForeignKey(e => e.MedicalReportCode)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Student>().HasKey(s => s.SSN);
@@ -87,7 +87,7 @@ namespace DentalHospital.Data
             modelBuilder.Entity<Student>()
                 .HasOne(e => e.Clinic)
                 .WithMany(e => e.Students)
-                .HasForeignKey(e => e.ClinicId)
+                .HasForeignKey(e => e.ClinicName)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Professor>().HasKey(p => p.SSN);
@@ -145,6 +145,17 @@ namespace DentalHospital.Data
             modelBuilder.Entity<Patient>(entity =>
             {
                 entity.Property(a => a.Code)
+                .ValueGeneratedNever();
+            });
+
+            modelBuilder.Entity<MedicalReport>(entity =>
+            {
+                entity.Property(m => m.Code)
+                .ValueGeneratedNever();
+            });
+            modelBuilder.Entity<Clinic>(entity =>
+            {
+                entity.Property(m => m.Name)
                 .ValueGeneratedNever();
             });
         }

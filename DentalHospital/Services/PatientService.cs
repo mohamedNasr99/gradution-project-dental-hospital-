@@ -15,24 +15,9 @@ namespace DentalHospital.Services
             this.dbContext = dbContext;
         }
 
-        public async Task<Patient?> Reservation(ReservationDTO reservationDTO)
+        public async Task<Patient?> PatientRegister(ReservationDTO reservationDTO)
         {
             string code = GenerateUniqueCode();
-
-            
-            Cases? CaseObject = await dbContext.Cases.FirstOrDefaultAsync();
-
-            if(CaseObject == null || CaseObject.PermissibleCases == 0)
-            {
-                return null;
-            }
-
-            int ReservationCount = await dbContext.Patients.CountAsync(p => p.CreatedAt.Day == DateTime.Now.Day);
-
-            if (ReservationCount > CaseObject.PermissibleCases)
-            {
-                return null;
-            }
 
             Patient patient = new Patient();
             patient.Name = reservationDTO.Name;
@@ -45,6 +30,7 @@ namespace DentalHospital.Services
 
             await dbContext.Patients.AddAsync(patient);
             await dbContext.SaveChangesAsync();
+
 
             return patient;
 
@@ -64,6 +50,27 @@ namespace DentalHospital.Services
             while (dbContext.Patients.Any(p => p.Code == code)); 
 
             return code;
+        }
+
+        public async Task<MedicalReport?> Reservation(string SNN)
+        {
+            Patient? patient = await dbContext.Patients.FirstOrDefaultAsync(p => p.SSN == SNN);
+
+            if (patient == null)
+            {
+                return null;
+            }
+
+            string code = GenerateUniqueCode();
+
+            MedicalReport medicalReport = new MedicalReport();
+            medicalReport.PatientCode = patient.Code;
+            medicalReport.Code = code;
+
+            await dbContext.MedicalReports.AddAsync(medicalReport);
+            await dbContext.SaveChangesAsync();
+
+            return medicalReport;
         }
 
     }

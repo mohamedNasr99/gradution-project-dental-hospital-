@@ -161,23 +161,23 @@ namespace DentalHospital.Migrations
 
             modelBuilder.Entity("DentalHospital.Models.Clinic", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Name");
 
                     b.ToTable("Clinics");
                 });
 
             modelBuilder.Entity("DentalHospital.Models.MedicalReport", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("Code")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Clinic")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DentalHistory")
                         .IsRequired()
@@ -190,6 +190,9 @@ namespace DentalHospital.Migrations
                     b.Property<string>("Diagnosis")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsPayed")
+                        .HasColumnType("bit");
 
                     b.Property<string>("MedicalHistory")
                         .IsRequired()
@@ -207,7 +210,7 @@ namespace DentalHospital.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Code");
 
                     b.HasIndex("PatientCode");
 
@@ -228,19 +231,12 @@ namespace DentalHospital.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("DATE");
 
-                    b.Property<string>("Clinic")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsPayed")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -277,7 +273,11 @@ namespace DentalHospital.Migrations
 
                     b.Property<string>("ClinicId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(70)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -329,7 +329,7 @@ namespace DentalHospital.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("DATE");
 
-                    b.Property<string>("MedicalReportId")
+                    b.Property<string>("MedicalReportCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -343,7 +343,7 @@ namespace DentalHospital.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MedicalReportId");
+                    b.HasIndex("MedicalReportCode");
 
                     b.ToTable("Sessions");
                 });
@@ -364,9 +364,9 @@ namespace DentalHospital.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("DATE");
 
-                    b.Property<string>("ClinicId")
+                    b.Property<string>("ClinicName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(70)");
 
                     b.Property<string>("Gender")
                         .IsRequired()
@@ -384,7 +384,7 @@ namespace DentalHospital.Migrations
 
                     b.HasIndex("AdminSSN");
 
-                    b.HasIndex("ClinicId");
+                    b.HasIndex("ClinicName");
 
                     b.ToTable("Students");
                 });
@@ -564,7 +564,7 @@ namespace DentalHospital.Migrations
                 {
                     b.HasOne("DentalHospital.Models.MedicalReport", "MedicalReport")
                         .WithMany("Sessions")
-                        .HasForeignKey("MedicalReportId")
+                        .HasForeignKey("MedicalReportCode")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -581,7 +581,7 @@ namespace DentalHospital.Migrations
 
                     b.HasOne("DentalHospital.Models.Clinic", "Clinic")
                         .WithMany("Students")
-                        .HasForeignKey("ClinicId")
+                        .HasForeignKey("ClinicName")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

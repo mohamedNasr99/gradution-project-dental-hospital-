@@ -203,7 +203,7 @@ namespace DentalHospital.Controllers
             return Ok("تمام طلعت");
         }
 
-        [HttpPost("ChangePassword")]
+        [HttpPatch("ChangePassword")]
         [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> ChangePassword(ChangePasswordDTO changePasswordDTO)
         {

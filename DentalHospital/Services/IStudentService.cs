@@ -5,10 +5,16 @@ namespace DentalHospital.Services
 {
     public interface IStudentService
     {
-        Task<int> AddTreatment(TreatmentDTO treatmentDTO);
-        Task<MedicalReport?> ViewDiagnosis(string code);
-        Task<int> CheckCode(string code);
+        int AddTreatment(TreatmentDTO treatmentDTO);
         Task<int> TreatmentInDiagnosis(TreatmentInDiagnosisDTO treatmentInDiagnosisDTO);
-        Task<int> ConvertToClinic(ConvertToClinicDTO convertToClinicDTO);
+        int ConvertToClinic(ConvertToClinicDTO convertToClinicDTO);
+        Task<int> AddSession(SessionDTO sessionDTO);
+        Task<IEnumerable<string>> Search(string name);
+        IEnumerable<string> Cases(string SSN);
+        Task<CaseDTO> MedicalReport(string code);
+        IEnumerable<DateTime> SessionsDates(string MedicalCode);
+        Task<SessionReturnDTO> SessionData(DateTime date);
+        Task<IEnumerable<string>> clinics();
+
     }
 }

@@ -95,5 +95,31 @@ namespace DentalHospital.Controllers
             return BadRequest(ModelState);
         }
 
+        [HttpDelete("RemoveRole")]
+        public async Task<IActionResult> RemoveRole(string RoleName)
+        {
+            if (RoleName != null)
+            {
+                IdentityRole role = await roleManager.FindByNameAsync(RoleName);
+
+                if (role != null)
+                {
+                    IdentityResult result = await roleManager.DeleteAsync(role);
+
+                    if (result.Succeeded)
+                    {
+                        await dbContext.SaveChangesAsync();
+                        return Ok("عمليه الحذف تم ي مدير");
+                    }
+
+                    return BadRequest("عمليه الحذف متمتش ي مدير");
+                }
+
+                return BadRequest("There is no role with this name or role is not found");
+            }
+
+            return BadRequest("RoleName field is null");
+        }
+
     }
 }

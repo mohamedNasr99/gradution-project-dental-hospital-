@@ -10,5 +10,7 @@ namespace DentalHospital.DTOs
         public string Description { get; set; } = string.Empty;
         [Required]
         public string Treatment { get; set; } = string.Empty;
+        [Required]
+        public string StudentSSN { get; set; } = string.Empty;
     }
 }

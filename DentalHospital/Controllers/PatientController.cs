@@ -1,8 +1,10 @@
-﻿using DentalHospital.DTOs;
+﻿using DentalHospital.Data;
+using DentalHospital.DTOs;
 using DentalHospital.Models;
 using DentalHospital.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DentalHospital.Controllers
 {
@@ -11,27 +13,59 @@ namespace DentalHospital.Controllers
     public class PatientController : ControllerBase
     {
         private readonly IPatientService patientService;
+        private readonly ApplicationDbContext dbContext;
 
-        public PatientController(IPatientService patientService)
+        public PatientController(IPatientService patientService, ApplicationDbContext dbContext)
         {
             this.patientService = patientService;
+            this.dbContext = dbContext;
         }
 
-        [HttpPost("Reservation")]
-        public async Task<IActionResult> Reservation(ReservationDTO reservationDTO)
+        [HttpPost("PatientRegister")]
+        public async Task<IActionResult> PatientRegister(ReservationDTO reservationDTO)
         {
             if(ModelState.IsValid == true)
             {
-                Patient? patient = await patientService.Reservation(reservationDTO);
+                Patient? patient = await patientService.PatientRegister(reservationDTO);
 
                 if (patient != null)
                 {
                     return Ok(patient.Code);
                 }
-                return BadRequest("قد يكون مفيش حجز انهردا او العدد اكتمل");
+                return BadRequest("عملية التسجيل لم تنجح");
             }
 
             return BadRequest(ModelState);
+        }
+
+        [HttpPost("Reservation")]
+        public async Task<IActionResult> Reservation(string SNN)
+        {
+            if (SNN != null)
+            {
+                Cases? cases = await dbContext.Cases.FirstOrDefaultAsync();
+                int patients = await dbContext.Patients.CountAsync(p => p.CreatedAt.Day == DateTime.Now.Day);
+                if (cases != null)
+                {
+                    if (patients<=cases.PermissibleCases)
+                    {
+                        MedicalReport? medicalReport = await patientService.Reservation(SNN);
+
+                        if (medicalReport != null)
+                        {
+                            return Ok(medicalReport.Code);
+                        }
+
+                        return BadRequest("من فضلك سجل بياناتك الاول ثم احجز");
+                    }
+
+                    return BadRequest("معذرة الحجز اكتمل انهردا");
+                }
+
+                return BadRequest("من فضلك ي ادمن ادخل قيمه للحالات المسموحه");
+            }
+
+            return BadRequest("دخل قيمه جدع حبيبي");
         }
     }
 }

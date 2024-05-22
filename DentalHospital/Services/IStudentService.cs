@@ -10,8 +10,7 @@ namespace DentalHospital.Services
         int ConvertToClinic(ConvertToClinicDTO convertToClinicDTO);
         Task<int> AddSession(SessionDTO sessionDTO);
         Task<IEnumerable<string>> Search(string name);
-        IEnumerable<string> Cases(string SSN);
-        Task<CaseDTO> MedicalReport(string code);
+        Task<IEnumerable<string>> Cases();
         IEnumerable<DateTime> SessionsDates(string MedicalCode);
         Task<SessionReturnDTO> SessionData(DateTime date);
         Task<IEnumerable<string>> clinics();

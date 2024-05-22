@@ -1,4 +1,5 @@
 ﻿using DentalHospital.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,7 +35,7 @@ namespace DentalHospital.Data
 
             modelBuilder.Entity<ApplicationUser>().HasKey(e => e.Id);
 
-            modelBuilder.Entity<Admin>().HasKey(a => a.SSN);
+            modelBuilder.Entity<Admin>().HasKey(a => a.Id);
 
             modelBuilder.Entity<Admin>(entity =>
             {
@@ -49,7 +50,7 @@ namespace DentalHospital.Data
                 .IsRequired();
             });
 
-            modelBuilder.Entity<Clinic>().HasKey(c => c.Name);
+            modelBuilder.Entity<Clinic>().HasKey(c => c.Id);
 
             modelBuilder.Entity<Clinic>(entity =>
             {
@@ -58,20 +59,20 @@ namespace DentalHospital.Data
                 .IsRequired();
             });
 
-            modelBuilder.Entity<MedicalReport>().HasKey(c => c.Code);
+            modelBuilder.Entity<MedicalReport>().HasKey(c => c.Id);
 
             modelBuilder.Entity<MedicalReport>()
                 .HasOne(e => e.Student)
                 .WithMany(e => e.MedicalReports)
-                .HasForeignKey(e => e.StudentSSN)
+                .HasForeignKey(e => e.StudentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Patient>().HasKey(p => p.Code);
+            modelBuilder.Entity<Patient>().HasKey(p => p.Id);
 
             modelBuilder.Entity<MedicalReport>()
                 .HasOne(e => e.Patient)
                 .WithMany(e => e.MedicalReports)
-                .HasForeignKey(e => e.PatientCode)
+                .HasForeignKey(e => e.PatientId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Session>().HasKey(s => s.Id);
@@ -79,18 +80,18 @@ namespace DentalHospital.Data
             modelBuilder.Entity<Session>()
                 .HasOne(e => e.MedicalReport)
                 .WithMany(e => e.Sessions)
-                .HasForeignKey(e => e.MedicalReportCode)
+                .HasForeignKey(e => e.MedicalReportId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Student>().HasKey(s => s.SSN);
+            modelBuilder.Entity<Student>().HasKey(s => s.Id);
 
             modelBuilder.Entity<Student>()
                 .HasOne(e => e.Clinic)
                 .WithMany(e => e.Students)
-                .HasForeignKey(e => e.ClinicName)
+                .HasForeignKey(e => e.ClinicId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Professor>().HasKey(p => p.SSN);
+            modelBuilder.Entity<Professor>().HasKey(p => p.Id);
 
             modelBuilder.Entity<Professor>()
                 .HasOne(e => e.Clinic)
@@ -98,7 +99,7 @@ namespace DentalHospital.Data
                 .HasForeignKey(e => e.ClinicId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Receptionist>().HasKey(s => s.SSN);
+            modelBuilder.Entity<Receptionist>().HasKey(s => s.Id);
 
             modelBuilder.Entity<Admin>(entity =>
             {

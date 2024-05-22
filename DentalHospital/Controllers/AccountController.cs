@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 
@@ -180,11 +181,25 @@ namespace DentalHospital.Controllers
                                 signingCredentials: credentials
                             );
 
+                        string Token = new JwtSecurityTokenHandler().WriteToken(token);
+
+                        //Response.Cookies.Append("AccessToken", Token,
+                        //    new CookieOptions
+                        //    {
+                        //        Expires = DateTimeOffset.UtcNow.AddMinutes(5),
+                        //        HttpOnly = true,
+                        //        IsEssential = true,
+                        //        Secure = true,
+                        //        SameSite = SameSiteMode.None
+                        //    });
+                        
+
                         return Ok(new
                         {
-                            token = new JwtSecurityTokenHandler().WriteToken(token),
-                            expiration = token.ValidTo
-                        });
+                            Token = Token,
+                            Roles = roles,
+                            Expiration = token.ValidTo
+                        }) ;
                     }
 
                     return Unauthorized("كلمة السر غلط يغالي/ة او لا يوجد حساب بهذا الايميل");

@@ -12,15 +12,14 @@ namespace DentalHospital.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Student")]
     public class StudentController : ControllerBase
     {
-        private readonly IStudentService studentService;
-        private readonly ApplicationDbContext dbContext;
+        private readonly IStudentService _studentService;
 
-        public StudentController(IStudentService studentService, ApplicationDbContext dbContext)
+        public StudentController(IStudentService studentService)
         {
-            this.studentService = studentService;
-            this.dbContext = dbContext;
+            _studentService = studentService;
         }
 
         [HttpPatch("AddTreatment")]
@@ -29,7 +28,7 @@ namespace DentalHospital.Controllers
         {
             if (ModelState.IsValid == true)
             {
-                int result =  studentService.AddTreatment(treatmentDTO);
+                int result =  _studentService.AddTreatment(treatmentDTO);
 
                 if (result == 1)
                 {
@@ -48,7 +47,7 @@ namespace DentalHospital.Controllers
         {
             if (ModelState.IsValid == true)
             {
-                int result = await studentService.TreatmentInDiagnosis(treatmentInDiagnosisDTO);
+                int result = await _studentService.TreatmentInDiagnosis(treatmentInDiagnosisDTO);
 
                 if (result == 1)
                 {
@@ -66,7 +65,7 @@ namespace DentalHospital.Controllers
         {
             if (ModelState.IsValid == true)
             {
-                int result =  studentService.ConvertToClinic(convertToClinicDTO);
+                int result =  _studentService.ConvertToClinic(convertToClinicDTO);
 
                 if (result == 1)
                 {
@@ -82,7 +81,7 @@ namespace DentalHospital.Controllers
         {
             if (ModelState.IsValid == true)
             {
-                int result  = await studentService.AddSession(sessionDTO);
+                int result  = await _studentService.AddSession(sessionDTO);
 
                 if (result == 1)
                 {
@@ -100,7 +99,7 @@ namespace DentalHospital.Controllers
         {
             if (name != null)
             {
-                var search = await studentService.Search(name);
+                var search = await _studentService.Search(name);
 
                 if (search.Any())
                 {
@@ -114,39 +113,15 @@ namespace DentalHospital.Controllers
         }
 
         [HttpGet("Cases")]
-        public IActionResult Cases(string SSN)
+        public IActionResult Cases()
         {
-            if (SSN != null)
+            var result = _studentService.Cases();
+
+            if (result != null)
             {
-                var result = studentService.Cases(SSN);
-
-                if (result.Any())
-                {
-                    return Ok(result);
-                }
-
-                return NotFound("لا يوجد تقارير");
+                return Ok(result);
             }
-
-            return BadRequest("من فضلك ادخل الرقم القومي");
-        }
-
-        [HttpGet("MedicalReport")]
-        public async Task<IActionResult> MedicalReport(string code)
-        {
-            if (code != null)
-            {
-                var result = await studentService.MedicalReport(code);
-
-                if (result != null)
-                {
-                    return Ok(result);
-                }
-
-                return NotFound("لا يوجد تقارير بهذا الكود");
-            }
-
-            return BadRequest("من فضلك ادخل الكود");
+            return NotFound("لا يوجد تقارير");
         }
 
         [HttpGet("SessionsDates")]
@@ -154,7 +129,7 @@ namespace DentalHospital.Controllers
         {
             if(MedicalCode != null)
             {
-                IEnumerable<DateTime> Dates = studentService.SessionsDates(MedicalCode);
+                IEnumerable<DateTime> Dates = _studentService.SessionsDates(MedicalCode);
                 if (Dates != null)
                 {
                     return Ok(Dates.ToList());
@@ -168,7 +143,7 @@ namespace DentalHospital.Controllers
         [HttpGet("SessionData")]
         public async Task<IActionResult> SessionData(DateTime date)
         {
-            SessionReturnDTO session = await studentService.SessionData(date);
+            SessionReturnDTO session = await _studentService.SessionData(date);
 
             if (session != null)
             {
@@ -181,7 +156,7 @@ namespace DentalHospital.Controllers
         [HttpGet("Clinics")]
         public async Task<IActionResult> Clinics()
         {
-            return Ok(await studentService.clinics());
+            return Ok(await _studentService.clinics());
         }
     }
 }

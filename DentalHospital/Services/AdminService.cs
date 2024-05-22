@@ -1,5 +1,7 @@
 ﻿using DentalHospital.Data;
+using DentalHospital.DTOs;
 using DentalHospital.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DentalHospital.Services
 {
@@ -37,6 +39,20 @@ namespace DentalHospital.Services
             }
 
             return 0;
+        }
+
+        public async Task<bool> StudentConvert(StudentConvertDTO studentConvertDTO)
+        {
+            var student = await dbContext.Students.FirstOrDefaultAsync(s => s.SSN == studentConvertDTO.StudentSSN);
+            if (student == null)
+            {
+                return false;
+            }
+            student.Clinic.Name = studentConvertDTO.Clinic;
+            dbContext.Update(student);
+            await dbContext.SaveChangesAsync();
+            return true;
+
         }
     }
 }

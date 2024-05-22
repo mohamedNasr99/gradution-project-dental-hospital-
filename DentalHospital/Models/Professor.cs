@@ -2,9 +2,10 @@
 {
     public class Professor
     {
+        public int Id { get; set; }
         public string SSN { get; set; } = string.Empty; 
-        public string AdminSSN { get; set; } = string.Empty;
-        public string ClinicId { get; set; } = string.Empty;
+        public int AdminId { get; set; } 
+        public int ClinicId { get; set; } 
         public string Gender { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty; 

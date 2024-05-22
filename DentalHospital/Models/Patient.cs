@@ -4,6 +4,7 @@ namespace DentalHospital.Models
 {
     public class Patient
     {
+        public int Id { get; set; }
         public string SSN { get; set; } = string.Empty; 
         public string Name { get; set; } = string.Empty; 
         public string Address { get; set; } = string.Empty;

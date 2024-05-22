@@ -37,9 +37,8 @@ namespace DentalHospital.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("DATE");
 
-                    b.Property<string>("Clinic")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Clinic")
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -94,6 +93,10 @@ namespace DentalHospital.Migrations
                     b.Property<int>("Round")
                         .HasColumnType("int");
 
+                    b.Property<string>("SSN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -119,8 +122,11 @@ namespace DentalHospital.Migrations
 
             modelBuilder.Entity("DentalHospital.Models.Admin", b =>
                 {
-                    b.Property<string>("SSN")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -138,7 +144,11 @@ namespace DentalHospital.Migrations
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)");
 
-                    b.HasKey("SSN");
+                    b.Property<string>("SSN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Admins");
                 });
@@ -161,21 +171,34 @@ namespace DentalHospital.Migrations
 
             modelBuilder.Entity("DentalHospital.Models.Clinic", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
 
-                    b.HasKey("Name");
+                    b.HasKey("Id");
 
                     b.ToTable("Clinics");
                 });
 
             modelBuilder.Entity("DentalHospital.Models.MedicalReport", b =>
                 {
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Clinic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Code")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -198,31 +221,43 @@ namespace DentalHospital.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PatientCode")
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PatientSSN")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
 
                     b.Property<string>("StudentSSN")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Treatment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Code");
+                    b.Property<DateTime>("dateTime")
+                        .HasColumnType("datetime2");
 
-                    b.HasIndex("PatientCode");
+                    b.HasKey("Id");
 
-                    b.HasIndex("StudentSSN");
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("StudentId");
 
                     b.ToTable("MedicalReports");
                 });
 
             modelBuilder.Entity("DentalHospital.Models.Patient", b =>
                 {
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -230,6 +265,10 @@ namespace DentalHospital.Migrations
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("DATE");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -250,30 +289,31 @@ namespace DentalHospital.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Code");
+                    b.HasKey("Id");
 
                     b.ToTable("Patients");
                 });
 
             modelBuilder.Entity("DentalHospital.Models.Professor", b =>
                 {
-                    b.Property<string>("SSN")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AdminSSN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("AdminId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("DATE");
 
-                    b.Property<string>("ClinicId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(70)");
+                    b.Property<int>("ClinicId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Gender")
                         .IsRequired()
@@ -287,9 +327,13 @@ namespace DentalHospital.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SSN");
+                    b.Property<string>("SSN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("AdminSSN");
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdminId");
 
                     b.HasIndex("ClinicId");
 
@@ -298,8 +342,11 @@ namespace DentalHospital.Migrations
 
             modelBuilder.Entity("DentalHospital.Models.Receptionist", b =>
                 {
-                    b.Property<string>("SSN")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -316,22 +363,32 @@ namespace DentalHospital.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SSN");
+                    b.Property<string>("SSN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Receptionists");
                 });
 
             modelBuilder.Entity("DentalHospital.Models.Session", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("DATE");
 
                     b.Property<string>("MedicalReportCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MedicalReportId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Treatment")
                         .IsRequired()
@@ -343,30 +400,35 @@ namespace DentalHospital.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MedicalReportCode");
+                    b.HasIndex("MedicalReportId");
 
                     b.ToTable("Sessions");
                 });
 
             modelBuilder.Entity("DentalHospital.Models.Student", b =>
                 {
-                    b.Property<string>("SSN")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("AdminId")
+                        .HasColumnType("int");
+
                     b.Property<string>("AdminSSN")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("DATE");
 
-                    b.Property<string>("ClinicName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(70)");
+                    b.Property<int>("ClinicId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Gender")
                         .IsRequired()
@@ -380,11 +442,15 @@ namespace DentalHospital.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SSN");
+                    b.Property<string>("SSN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("AdminSSN");
+                    b.HasKey("Id");
 
-                    b.HasIndex("ClinicName");
+                    b.HasIndex("AdminId");
+
+                    b.HasIndex("ClinicId");
 
                     b.ToTable("Students");
                 });
@@ -526,13 +592,13 @@ namespace DentalHospital.Migrations
                 {
                     b.HasOne("DentalHospital.Models.Patient", "Patient")
                         .WithMany("MedicalReports")
-                        .HasForeignKey("PatientCode")
+                        .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DentalHospital.Models.Student", "Student")
                         .WithMany("MedicalReports")
-                        .HasForeignKey("StudentSSN")
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -545,7 +611,7 @@ namespace DentalHospital.Migrations
                 {
                     b.HasOne("DentalHospital.Models.Admin", "Admin")
                         .WithMany("Professors")
-                        .HasForeignKey("AdminSSN")
+                        .HasForeignKey("AdminId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -564,7 +630,7 @@ namespace DentalHospital.Migrations
                 {
                     b.HasOne("DentalHospital.Models.MedicalReport", "MedicalReport")
                         .WithMany("Sessions")
-                        .HasForeignKey("MedicalReportCode")
+                        .HasForeignKey("MedicalReportId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -575,13 +641,13 @@ namespace DentalHospital.Migrations
                 {
                     b.HasOne("DentalHospital.Models.Admin", "Admin")
                         .WithMany("Students")
-                        .HasForeignKey("AdminSSN")
+                        .HasForeignKey("AdminId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DentalHospital.Models.Clinic", "Clinic")
                         .WithMany("Students")
-                        .HasForeignKey("ClinicName")
+                        .HasForeignKey("ClinicId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

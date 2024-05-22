@@ -50,16 +50,40 @@ namespace DentalHospital
                     ValidAudience = builder.Configuration["JWT:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
                 };
+
+                //options.Events = new JwtBearerEvents
+                //{
+                //    OnMessageReceived = ctx =>
+                //    {
+                //        ctx.Request.Cookies.TryGetValue("AccessToken", out var AccessToken);
+                //        if (!string.IsNullOrEmpty(AccessToken))
+                //        {
+                //            ctx.Token = AccessToken;
+                //        }
+                //        return Task.CompletedTask;
+                //    }
             });
 
+            //builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<IReceptionistService, ReceptionistService>();
             builder.Services.AddScoped<IAdminService, AdminService>();
             builder.Services.AddScoped<IPatientService, PatientService>();
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IStudentService, StudentService>();
             builder.Services.AddScoped<IProfessorService, ProfessorService>();
 
             builder.Services.AddMemoryCache();
             builder.Services.AddDistributedMemoryCache();
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("MyAllowSpecificOrigins",
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://example.com",
+                                                          "http://www.contoso.com");
+                                  });
+            });
 
             var app = builder.Build();
 
@@ -70,6 +94,8 @@ namespace DentalHospital
                 app.UseSwaggerUI();
             }
             app.UseRouting();
+
+            app.UseCors("MyAllowSpecificOrigins");
 
             app.UseCors();
 

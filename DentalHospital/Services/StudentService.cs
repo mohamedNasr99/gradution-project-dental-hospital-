@@ -2,23 +2,28 @@
 using DentalHospital.DTOs;
 using DentalHospital.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace DentalHospital.Services
 {
     public class StudentService : IStudentService
     {
-        private readonly ApplicationDbContext dbContext;
+        private readonly ApplicationDbContext _dbContext;
+        private readonly IHttpContextAccessor _accessor;
+        private readonly IUserService _userService;
 
-        public StudentService(ApplicationDbContext dbContext)
+        public StudentService(ApplicationDbContext dbContext, IHttpContextAccessor accessor, IUserService userService)
         {
-            this.dbContext = dbContext;
+            _dbContext = dbContext;
+            _accessor = accessor;
+            _userService = userService;
         }
 
         public int AddTreatment(TreatmentDTO treatmentDTO)
         {
             if (treatmentDTO != null)
             {
-                var medicalreport = dbContext.MedicalReports.FirstOrDefault(m => m.Code == treatmentDTO.Code);
+                var medicalreport = _dbContext.MedicalReports.FirstOrDefault(m => m.Code == treatmentDTO.Code);
 
                 if (medicalreport == null)
                 {
@@ -29,8 +34,8 @@ namespace DentalHospital.Services
                 medicalreport.Treatment = treatmentDTO.Treatment;
                 medicalreport.StudentSSN = treatmentDTO.StudentSSN;
 
-                 dbContext.Update(medicalreport);
-                 dbContext.SaveChanges();
+                 _dbContext.Update(medicalreport);
+                 _dbContext.SaveChanges();
 
                 return 1;
             }
@@ -41,14 +46,14 @@ namespace DentalHospital.Services
 
         public async Task<int> TreatmentInDiagnosis(TreatmentInDiagnosisDTO treatmentInDiagnosisDTO)
         {
-            MedicalReport? medicalReport = await dbContext.MedicalReports.FirstOrDefaultAsync(m => m.Code == treatmentInDiagnosisDTO.Code);
+            MedicalReport? medicalReport = await _dbContext.MedicalReports.FirstOrDefaultAsync(m => m.Code == treatmentInDiagnosisDTO.Code);
 
             medicalReport.MedicalHistory = treatmentInDiagnosisDTO.MedicalHistory;
             medicalReport.DentalHistory = treatmentInDiagnosisDTO.DentalHistory;
             medicalReport.Diagnosis = treatmentInDiagnosisDTO.Diagnosis;
 
-            dbContext.MedicalReports.Update(medicalReport);
-           int result = dbContext.SaveChanges();
+            _dbContext.MedicalReports.Update(medicalReport);
+           int result = _dbContext.SaveChanges();
 
             if (result == 1)
             {
@@ -59,7 +64,7 @@ namespace DentalHospital.Services
 
         public int ConvertToClinic(ConvertToClinicDTO convertToClinicDTO)
         {
-            MedicalReport? report = dbContext.MedicalReports.FirstOrDefault(m => m.Code == convertToClinicDTO.Code);
+            MedicalReport? report = _dbContext.MedicalReports.FirstOrDefault(m => m.Code == convertToClinicDTO.Code);
 
             if (report == null)
             {
@@ -68,8 +73,8 @@ namespace DentalHospital.Services
 
             report.Clinic = convertToClinicDTO.ClinicName;
 
-            dbContext.Update(report);
-            dbContext.SaveChanges();
+            _dbContext.Update(report);
+            _dbContext.SaveChanges();
 
             return 1;
         }
@@ -82,8 +87,8 @@ namespace DentalHospital.Services
             session.MedicalReportCode = sessionDTO.MedicalReportCode;
             session.Date = DateTime.Now;
 
-            await dbContext.Sessions.AddAsync(session);
-            int result = await dbContext.SaveChangesAsync();
+            await _dbContext.Sessions.AddAsync(session);
+            int result = await _dbContext.SaveChangesAsync();
 
             if (result == 1)
             {
@@ -95,47 +100,31 @@ namespace DentalHospital.Services
 
         public async Task<IEnumerable<string>> Search(string name)
         {
-            IQueryable<string> query = dbContext.Students.Select(s => s.Name);
+            IQueryable<string> query = _dbContext.Students.Select(s => s.Name);
 
             query = query.Where(n => n.Contains(name));
 
             return await query.ToListAsync();
         }
 
-        public IEnumerable<string> Cases(string SSN)
+        public async Task<IEnumerable<string>> Cases()
         {
-            IQueryable<MedicalReport> reports = dbContext.MedicalReports;
-
-            reports = reports.Where(m => m.StudentSSN == SSN);
-
+            var userid = _accessor.HttpContext?.User.Claims.FirstOrDefault(u => u.Type.Equals(ClaimTypes.PrimarySid))!.Value;
+            var user = await _userService.GetUserById(userid);
+            var reports = _dbContext.MedicalReports.Where(m => m.StudentId == int.Parse(userid));
             return reports.Select(m => m.Code);
-        }
-
-        public async Task<CaseDTO> MedicalReport(string code)
-        {
-            var result = await dbContext.MedicalReports.FirstOrDefaultAsync(m => m.Code == code);
-
-            CaseDTO caseDTO = new CaseDTO();
-
-            caseDTO.Diagnosis = result.Diagnosis;
-            caseDTO.DentalHistory = result.DentalHistory;
-            caseDTO.Treatment = result.Treatment;
-            caseDTO.Description = result.Description;
-            caseDTO.MedicalHistory = result.MedicalHistory;
-
-            return caseDTO;
         }
 
         public IEnumerable<DateTime> SessionsDates(string MedicalCode)
         {
-            var sessions = dbContext.Sessions.Where(s => s.MedicalReportCode == MedicalCode).ToList();
+            var sessions = _dbContext.Sessions.Where(s => s.MedicalReportCode == MedicalCode).ToList();
 
             return sessions.Select(s => s.Date);
         }
 
         public async Task<SessionReturnDTO?> SessionData(DateTime date)
         {
-            Session? session = await dbContext.Sessions.FirstOrDefaultAsync(s => s.Date == date);
+            Session? session = await _dbContext.Sessions.FirstOrDefaultAsync(s => s.Date == date);
 
             if (session == null)
             {
@@ -152,9 +141,11 @@ namespace DentalHospital.Services
 
         public async Task<IEnumerable<string>> clinics()
         {
-            var clinics = await dbContext.Clinics.ToListAsync();
+            var clinics = await _dbContext.Clinics.ToListAsync();
             return clinics.Select(c => c.Name);
         }
+
+        
 
     }
 }

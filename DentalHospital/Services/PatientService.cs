@@ -64,7 +64,7 @@ namespace DentalHospital.Services
             string code = GenerateUniqueCode();
 
             MedicalReport medicalReport = new MedicalReport();
-            medicalReport.PatientCode = patient.Code;
+            medicalReport.PatientSSN = patient.SSN;
             medicalReport.Code = code;
 
             await dbContext.MedicalReports.AddAsync(medicalReport);

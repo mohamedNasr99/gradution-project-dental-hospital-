@@ -45,15 +45,35 @@ namespace DentalHospital.Controllers
             {
                 Cases? cases = await dbContext.Cases.FirstOrDefaultAsync();
                 int patients = await dbContext.Patients.CountAsync(p => p.CreatedAt.Day == DateTime.Now.Day);
+                MedicalReport? medicalReport = await patientService.Reservation(SNN);
                 if (cases != null)
                 {
                     if (patients<=cases.PermissibleCases)
                     {
-                        MedicalReport? medicalReport = await patientService.Reservation(SNN);
-
-                        if (medicalReport != null)
+                        int HalfPermissible = cases.PermissibleCases / 2;
+                        if (patients <= HalfPermissible)
                         {
-                            return Ok(medicalReport.Code);
+                            
+
+                            if (medicalReport != null)
+                            {
+                                return Ok(new
+                                {
+                                    Code = medicalReport.Code,
+                                    Duration = "You are from 8 am to 11 am"
+                                });
+                            }
+                        }
+                        else
+                        {
+                            if (medicalReport != null)
+                            {
+                                return Ok(new
+                                {
+                                    Code = medicalReport.Code,
+                                    Duration = "You are from 11 am to 2 pm"
+                                });
+                            }
                         }
 
                         return BadRequest("من فضلك سجل بياناتك الاول ثم احجز");

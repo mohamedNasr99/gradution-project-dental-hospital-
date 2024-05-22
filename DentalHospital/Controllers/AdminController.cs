@@ -1,4 +1,5 @@
-﻿using DentalHospital.Services;
+﻿using DentalHospital.DTOs;
+using DentalHospital.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -29,6 +30,25 @@ namespace DentalHospital.Controllers
             }
 
             return BadRequest("Failed to add Cases.");
+        }
+
+        [HttpPatch("StudentConvert")]
+        public async Task<IActionResult> StudentConvert(StudentConvertDTO studentConvertDTO)
+        {
+
+            if (ModelState.IsValid == true)
+            {
+                bool result = await adminService.StudentConvert(studentConvertDTO);
+
+                if (result == true)
+                {
+                    return Ok("تمت العمليه بنجاح");
+                }
+
+                return BadRequest("لا يوجد طالب بهذا الرقم القومي");
+            }
+
+            return BadRequest(ModelState);
         }
     }
 }

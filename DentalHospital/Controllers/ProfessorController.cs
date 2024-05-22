@@ -19,13 +19,46 @@ namespace DentalHospital.Controllers
         }
 
         [HttpGet("StudentsInSpecificClinic")]
-        public IActionResult StudentsInSpecificClinic(string ClinicName)
+        public IActionResult StudentsInSpecificClinic()
         {
-            if (ClinicName != null)
+            return Ok(professorService.StudentsInSpecificClinic());
+        }
+
+
+        [HttpGet("MedicalReportsOfStudent")]
+        public IActionResult MedicalReportsOfStudent(string StudentName)
+        {
+            if (StudentName != null)
             {
-                return Ok(professorService.StudentsInSpecificClinic(ClinicName));
+                var result = professorService.MedicalReportsOfStudent(StudentName);
+
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+
+                return NotFound("لا يوجد تقارير لهذا الطالب");
             }
-            return BadRequest("ادخل اسم العياده");
+
+            return BadRequest("ادخل اسم الطالب");
+        }
+
+        [HttpGet("MedicalReport")]
+        public async Task<IActionResult> MedicalReport(string code)
+        {
+            if (code != null)
+            {
+                var result = await professorService.MedicalReport(code);
+
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+
+                return NotFound("لا يوجد تقارير بهذا الكود");
+            }
+
+            return BadRequest("من فضلك ادخل الكود");
         }
     }
 }

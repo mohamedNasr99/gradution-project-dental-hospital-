@@ -20,7 +20,7 @@ namespace DentalHospital.DTOs
         [Compare("Password")]
         public string ConfirmPassword { get; set; } = string.Empty;
         [Required]
-        public string Clinic { get; set; } = string.Empty;
+        public int Clinic { get; set; } 
         [Required]
         [RegularExpression("^[A-Z][a-z]*$", ErrorMessage ="This field is camal case , first letter is capatal and rest of letters is small.")]
         public string Role { get; set; } = string.Empty;

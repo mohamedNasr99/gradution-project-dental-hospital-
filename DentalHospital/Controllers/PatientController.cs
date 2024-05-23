@@ -44,42 +44,48 @@ namespace DentalHospital.Controllers
             if (SNN != null)
             {
                 Cases? cases = await dbContext.Cases.FirstOrDefaultAsync();
-                int patients = await dbContext.Patients.CountAsync(p => p.CreatedAt.Day == DateTime.Now.Day);
-                MedicalReport? medicalReport = await patientService.Reservation(SNN);
+                int reports = await dbContext.MedicalReports.CountAsync(p => p.dateTime.Day == DateTime.Now.Day);
+                int HalfPermissible = cases.PermissibleCases / 2;
                 if (cases != null)
                 {
-                    if (patients<=cases.PermissibleCases)
+                    if(cases.PermissibleCases != 0)
                     {
-                        int HalfPermissible = cases.PermissibleCases / 2;
-                        if (patients <= HalfPermissible)
+                        if (reports <= cases.PermissibleCases)
                         {
-                            
 
-                            if (medicalReport != null)
+                            if (reports < HalfPermissible)
                             {
-                                return Ok(new
-                                {
-                                    Code = medicalReport.Code,
-                                    Duration = "You are from 8 am to 11 am"
-                                });
-                            }
-                        }
-                        else
-                        {
-                            if (medicalReport != null)
-                            {
-                                return Ok(new
-                                {
-                                    Code = medicalReport.Code,
-                                    Duration = "You are from 11 am to 2 pm"
-                                });
-                            }
-                        }
 
-                        return BadRequest("من فضلك سجل بياناتك الاول ثم احجز");
+                                MedicalReport? medicalReport = await patientService.Reservation(SNN);
+                                if (medicalReport != null)
+                                {
+                                    return Ok(new
+                                    {
+                                        Code = medicalReport.Code,
+                                        Duration = "You are from 8 am to 11 am"
+                                    });
+                                }
+                                return BadRequest("من فضلك سجل بياناتك الاول ثم احجز");
+                            }
+                            else
+                            {
+                                MedicalReport? medicalReport = await patientService.Reservation(SNN);
+                                if (medicalReport != null)
+                                {
+                                    return Ok(new
+                                    {
+                                        Code = medicalReport.Code,
+                                        Duration = "You are from 11 am to 2 pm"
+                                    });
+                                }
+                                return BadRequest("من فضلك سجل بياناتك الاول ثم احجز");
+
+                            }
+
+                        }
+                        return BadRequest("معذرة الحجز اكتمل انهردا");
                     }
-
-                    return BadRequest("معذرة الحجز اكتمل انهردا");
+                    return BadRequest("لا يوجد حجز اليوم");
                 }
 
                 return BadRequest("من فضلك ي ادمن ادخل قيمه للحالات المسموحه");

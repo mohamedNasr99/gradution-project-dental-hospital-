@@ -66,6 +66,7 @@ namespace DentalHospital.Services
             MedicalReport medicalReport = new MedicalReport();
             medicalReport.PatientSSN = patient.SSN;
             medicalReport.Code = code;
+            medicalReport.dateTime = DateTime.Now;
 
             await dbContext.MedicalReports.AddAsync(medicalReport);
             await dbContext.SaveChangesAsync();

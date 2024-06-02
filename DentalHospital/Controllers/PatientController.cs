@@ -50,7 +50,7 @@ namespace DentalHospital.Controllers
                 {
                     if(cases.PermissibleCases != 0)
                     {
-                        if (reports <= cases.PermissibleCases)
+                        if (reports < cases.PermissibleCases)
                         {
 
                             if (reports < HalfPermissible)

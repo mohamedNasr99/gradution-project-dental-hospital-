@@ -55,7 +55,7 @@ namespace DentalHospital.Controllers
                     return Ok(result);
                 }
 
-                return NotFound("لا يوجد تقارير بهذا الكود");
+                return NotFound("لا يوجد تقرير بهذا الكود");
             }
 
             return BadRequest("من فضلك ادخل الكود");

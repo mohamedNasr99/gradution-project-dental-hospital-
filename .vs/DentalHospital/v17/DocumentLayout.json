@@ -3,12 +3,24 @@
   "WorkspaceRootPath": "D:\\DentalHospital\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|d:\\dentalhospital\\dentalhospital\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|solutionrelative:dentalhospital\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|d:\\dentalhospital\\dentalhospital\\controllers\\patientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|solutionrelative:dentalhospital\\controllers\\patientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|d:\\dentalhospital\\dentalhospital\\services\\professorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|solutionrelative:dentalhospital\\services\\professorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|d:\\dentalhospital\\dentalhospital\\controllers\\professorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|solutionrelative:dentalhospital\\controllers\\professorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|d:\\dentalhospital\\dentalhospital\\controllers\\superadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|solutionrelative:dentalhospital\\controllers\\superadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|d:\\dentalhospital\\dentalhospital\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|solutionrelative:dentalhospital\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|d:\\dentalhospital\\dentalhospital\\services\\patientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -17,10 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|d:\\dentalhospital\\dentalhospital\\models\\medicalreport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|solutionrelative:dentalhospital\\models\\medicalreport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|d:\\dentalhospital\\dentalhospital\\controllers\\superadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|solutionrelative:dentalhospital\\controllers\\superadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|d:\\dentalhospital\\dentalhospital\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -45,10 +53,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|d:\\dentalhospital\\dentalhospital\\models\\session.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|solutionrelative:dentalhospital\\models\\session.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|d:\\dentalhospital\\dentalhospital\\services\\professorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|solutionrelative:dentalhospital\\services\\professorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E5AC6F4A-B5B8-46DC-8948-B728C7517833}|DentalHospital\\DentalHospital.csproj|d:\\dentalhospital\\dentalhospital\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -82,36 +86,23 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "PatientController.cs",
-              "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Controllers\\PatientController.cs",
-              "RelativeDocumentMoniker": "DentalHospital\\Controllers\\PatientController.cs",
-              "ToolTip": "D:\\DentalHospital\\DentalHospital\\Controllers\\PatientController.cs",
-              "RelativeToolTip": "DentalHospital\\Controllers\\PatientController.cs",
-              "ViewState": "AQIAAEEAAAAAAAAAAAAuwFcAAAA4AAAA",
+              "DocumentIndex": 2,
+              "Title": "ProfessorController.cs",
+              "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Controllers\\ProfessorController.cs",
+              "RelativeDocumentMoniker": "DentalHospital\\Controllers\\ProfessorController.cs",
+              "ToolTip": "D:\\DentalHospital\\DentalHospital\\Controllers\\ProfessorController.cs",
+              "RelativeToolTip": "DentalHospital\\Controllers\\ProfessorController.cs",
+              "ViewState": "AQIAACYAAAAAAAAAAAAwwDkAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-22T20:43:29.816Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-29T11:36:52.821Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "20240521144505_initially.cs",
-              "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Migrations\\20240521144505_initially.cs",
-              "RelativeDocumentMoniker": "DentalHospital\\Migrations\\20240521144505_initially.cs",
-              "ToolTip": "D:\\DentalHospital\\DentalHospital\\Migrations\\20240521144505_initially.cs",
-              "RelativeToolTip": "DentalHospital\\Migrations\\20240521144505_initially.cs",
-              "ViewState": "AQIAAI4AAAAAAAAAAAAgwAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T14:45:05.38Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\appsettings.json",
               "RelativeDocumentMoniker": "DentalHospital\\appsettings.json",
@@ -123,7 +114,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "ApplicationUser.cs",
               "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Data\\ApplicationUser.cs",
               "RelativeDocumentMoniker": "DentalHospital\\Data\\ApplicationUser.cs",
@@ -135,7 +126,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "Session.cs",
               "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Models\\Session.cs",
               "RelativeDocumentMoniker": "DentalHospital\\Models\\Session.cs",
@@ -147,7 +138,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "MedicalReport.cs",
               "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Models\\MedicalReport.cs",
               "RelativeDocumentMoniker": "DentalHospital\\Models\\MedicalReport.cs",
@@ -159,7 +150,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "PatientService.cs",
               "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Services\\PatientService.cs",
               "RelativeDocumentMoniker": "DentalHospital\\Services\\PatientService.cs",
@@ -167,25 +158,73 @@
               "RelativeToolTip": "DentalHospital\\Services\\PatientService.cs",
               "ViewState": "AQIAACsAAABgNTMzM7MgwEQAAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-20T18:25:36.567Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-20T18:25:36.567Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "AdminController.cs",
               "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Controllers\\AdminController.cs",
               "RelativeDocumentMoniker": "DentalHospital\\Controllers\\AdminController.cs",
               "ToolTip": "D:\\DentalHospital\\DentalHospital\\Controllers\\AdminController.cs",
               "RelativeToolTip": "DentalHospital\\Controllers\\AdminController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAfAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T15:18:22.47Z",
+              "WhenOpened": "2024-05-21T15:18:22.47Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ProfessorService.cs",
+              "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Services\\ProfessorService.cs",
+              "RelativeDocumentMoniker": "DentalHospital\\Services\\ProfessorService.cs",
+              "ToolTip": "D:\\DentalHospital\\DentalHospital\\Services\\ProfessorService.cs",
+              "RelativeToolTip": "DentalHospital\\Services\\ProfessorService.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAQwBgAAABCAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-20T18:35:46.69Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 0,
+              "Title": "PatientController.cs",
+              "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Controllers\\PatientController.cs",
+              "RelativeDocumentMoniker": "DentalHospital\\Controllers\\PatientController.cs",
+              "ToolTip": "D:\\DentalHospital\\DentalHospital\\Controllers\\PatientController.cs",
+              "RelativeToolTip": "DentalHospital\\Controllers\\PatientController.cs",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAmwDQAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-22T20:43:29.816Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "20240521144505_initially.cs",
+              "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Migrations\\20240521144505_initially.cs",
+              "RelativeDocumentMoniker": "DentalHospital\\Migrations\\20240521144505_initially.cs",
+              "ToolTip": "D:\\DentalHospital\\DentalHospital\\Migrations\\20240521144505_initially.cs",
+              "RelativeToolTip": "DentalHospital\\Migrations\\20240521144505_initially.cs",
+              "ViewState": "AQIAAI4AAAAAAAAAAAAgwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-21T14:45:05.38Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SuperAdminController.cs",
+              "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Controllers\\SuperAdminController.cs",
+              "RelativeDocumentMoniker": "DentalHospital\\Controllers\\SuperAdminController.cs",
+              "ToolTip": "D:\\DentalHospital\\DentalHospital\\Controllers\\SuperAdminController.cs",
+              "RelativeToolTip": "DentalHospital\\Controllers\\SuperAdminController.cs",
+              "ViewState": "AQIAAE0AAAAAAAAAAAAqwA0AAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-21T15:29:37.061Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "AccountController.cs",
               "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "DentalHospital\\Controllers\\AccountController.cs",
@@ -197,31 +236,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "SuperAdminController.cs",
-              "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Controllers\\SuperAdminController.cs",
-              "RelativeDocumentMoniker": "DentalHospital\\Controllers\\SuperAdminController.cs",
-              "ToolTip": "D:\\DentalHospital\\DentalHospital\\Controllers\\SuperAdminController.cs",
-              "RelativeToolTip": "DentalHospital\\Controllers\\SuperAdminController.cs",
-              "ViewState": "AQIAADAAAAAAAAAAAAAowE8AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T15:29:37.061Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ProfessorService.cs",
-              "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Services\\ProfessorService.cs",
-              "RelativeDocumentMoniker": "DentalHospital\\Services\\ProfessorService.cs",
-              "ToolTip": "D:\\DentalHospital\\DentalHospital\\Services\\ProfessorService.cs",
-              "RelativeToolTip": "DentalHospital\\Services\\ProfessorService.cs",
-              "ViewState": "AQIAAB4AAAAAAAAAAAAowCcAAABYAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-20T18:35:46.69Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "Student.cs",
               "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Models\\Student.cs",
               "RelativeDocumentMoniker": "DentalHospital\\Models\\Student.cs",
@@ -233,7 +248,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "DentalHospital\\Data\\ApplicationDbContext.cs",
@@ -245,7 +260,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "Professor.cs",
               "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Models\\Professor.cs",
               "RelativeDocumentMoniker": "DentalHospital\\Models\\Professor.cs",
@@ -257,7 +272,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "Receptionist.cs",
               "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Models\\Receptionist.cs",
               "RelativeDocumentMoniker": "DentalHospital\\Models\\Receptionist.cs",
@@ -269,7 +284,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "StudentService.cs",
               "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Services\\StudentService.cs",
               "RelativeDocumentMoniker": "DentalHospital\\Services\\StudentService.cs",
@@ -281,7 +296,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "Patient.cs",
               "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Models\\Patient.cs",
               "RelativeDocumentMoniker": "DentalHospital\\Models\\Patient.cs",
@@ -293,7 +308,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "Admin.cs",
               "DocumentMoniker": "D:\\DentalHospital\\DentalHospital\\Models\\Admin.cs",
               "RelativeDocumentMoniker": "DentalHospital\\Models\\Admin.cs",

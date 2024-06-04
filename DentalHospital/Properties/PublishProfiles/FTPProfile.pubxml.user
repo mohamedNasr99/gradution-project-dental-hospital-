@@ -7,7 +7,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAf+nVivXfJECkBsYWpQT6UgAAAAACAAAAAAAQZgAAAAEAACAAAABRnIl/j732NFvQDbfTQ/7AJB50A8vdwzMHSBjbEz+/SAAAAAAOgAAAAAIAACAAAAD8UxadZdZbDU5Qdh+ko/nqARN41GBfBITdjSjopcal0iAAAADVBXnlYvzx02QlYLeoRHube0Ym58pDvaF+/FEqCtAx7EAAAABLti97i840bPl9ElxkuGgBpK3To32IErudTwSoF4F1tNMYlQN6y4A4g2ELFhzd98w2RRI+s1Z+11D+iYELBzGN</EncryptedPassword>
     <_PublishTargetUrl>ftp://dentalhospital.somee.com/www.DentalHospital.somee.com</_PublishTargetUrl>
-    <History>True|2024-06-02T14:26:30.4832598Z;</History>
+    <History>True|2024-06-04T16:19:54.9367995Z;False|2024-06-04T19:17:23.5350022+03:00;False|2024-06-04T19:15:14.2379578+03:00;True|2024-06-04T18:42:13.4936989+03:00;True|2024-06-02T17:26:30.4832598+03:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -18,16 +18,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/02/2024 17:14:00</publishTime>
     </File>
     <File Include="DentalHospital.deps.json">
-      <publishTime>06/02/2024 17:24:12</publishTime>
+      <publishTime>06/04/2024 19:19:42</publishTime>
     </File>
     <File Include="DentalHospital.dll">
-      <publishTime>06/02/2024 17:24:12</publishTime>
+      <publishTime>06/04/2024 19:19:42</publishTime>
     </File>
     <File Include="DentalHospital.exe">
-      <publishTime>06/02/2024 17:24:12</publishTime>
+      <publishTime>06/04/2024 19:19:42</publishTime>
     </File>
     <File Include="DentalHospital.pdb">
-      <publishTime>06/02/2024 17:24:12</publishTime>
+      <publishTime>06/04/2024 19:19:42</publishTime>
     </File>
     <File Include="DentalHospital.runtimeconfig.json">
       <publishTime>06/02/2024 17:24:12</publishTime>
@@ -132,7 +132,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/15/2019 10:54:30</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>06/02/2024 17:24:12</publishTime>
+      <publishTime>06/04/2024 19:19:42</publishTime>
     </File>
   </ItemGroup>
 </Project>

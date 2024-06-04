@@ -97,8 +97,6 @@ namespace DentalHospital
 
             app.UseCors("MyAllowSpecificOrigins");
 
-            app.UseCors();
-
             app.UseAuthorization();
             app.UseAuthorization();
 

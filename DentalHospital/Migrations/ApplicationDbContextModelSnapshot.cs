@@ -86,6 +86,9 @@ namespace DentalHospital.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("ReceptionistId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -116,6 +119,8 @@ namespace DentalHospital.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("ReceptionistId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -331,6 +336,10 @@ namespace DentalHospital.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AdminId");
@@ -364,6 +373,10 @@ namespace DentalHospital.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SSN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("userid")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -424,6 +437,9 @@ namespace DentalHospital.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("DATE");
 
@@ -446,9 +462,15 @@ namespace DentalHospital.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AdminId");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("ClinicId");
 
@@ -588,6 +610,13 @@ namespace DentalHospital.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("DentalHospital.Data.ApplicationUser", b =>
+                {
+                    b.HasOne("DentalHospital.Models.Receptionist", null)
+                        .WithMany("ApplicationUser")
+                        .HasForeignKey("ReceptionistId");
+                });
+
             modelBuilder.Entity("DentalHospital.Models.MedicalReport", b =>
                 {
                     b.HasOne("DentalHospital.Models.Patient", "Patient")
@@ -645,6 +674,10 @@ namespace DentalHospital.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DentalHospital.Data.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("DentalHospital.Models.Clinic", "Clinic")
                         .WithMany("Students")
                         .HasForeignKey("ClinicId")
@@ -652,6 +685,8 @@ namespace DentalHospital.Migrations
                         .IsRequired();
 
                     b.Navigation("Admin");
+
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("Clinic");
                 });
@@ -729,6 +764,11 @@ namespace DentalHospital.Migrations
             modelBuilder.Entity("DentalHospital.Models.Patient", b =>
                 {
                     b.Navigation("MedicalReports");
+                });
+
+            modelBuilder.Entity("DentalHospital.Models.Receptionist", b =>
+                {
+                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("DentalHospital.Models.Student", b =>

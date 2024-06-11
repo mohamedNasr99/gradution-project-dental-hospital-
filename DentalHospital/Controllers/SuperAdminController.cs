@@ -11,7 +11,7 @@ namespace DentalHospital.Controllers
 {
     [Route("api/[controller]/")]
     [ApiController]
-    [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme, Roles = "SuperAdmin")]
+    //[Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme, Roles = "SuperAdmin")]
     public class SuperAdminController : ControllerBase
     {
         private readonly RoleManager<IdentityRole> roleManager;

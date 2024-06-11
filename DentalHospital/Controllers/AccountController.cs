@@ -37,65 +37,74 @@ namespace DentalHospital.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles ="Admin")]
         public async Task<IActionResult> StudentProfessorRegister(StudentProfessorRegisterDTO studentProfessorRegisterDTO)
         {
-            if(ModelState.IsValid == true)
+            if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser();
-
-                user.UserName = studentProfessorRegisterDTO.UserName;
-                user.Email = studentProfessorRegisterDTO.Email;
-                user.Clinic = studentProfessorRegisterDTO.Clinic;
-                user.Role = studentProfessorRegisterDTO.Role;
-                user.Round = studentProfessorRegisterDTO.Round;
-
-                if (studentProfessorRegisterDTO.Role == "Student")
+                ApplicationUser user = new ApplicationUser
                 {
-                    Student student = new Student();
-                    student.SSN = studentProfessorRegisterDTO.SSN;
-                    student.Name = studentProfessorRegisterDTO .Name;
-                    student.PhoneNumber = studentProfessorRegisterDTO.Phone;
-                    student.BirthDate = studentProfessorRegisterDTO.BirthDate;
-                    student.Gender = studentProfessorRegisterDTO.Gender;
+                    UserName = studentProfessorRegisterDTO.UserName,
+                    Email = studentProfessorRegisterDTO.Email,
+                    Clinic = studentProfessorRegisterDTO.Clinic,
+                    Role = studentProfessorRegisterDTO.Role,
+                    Round = studentProfessorRegisterDTO.Round
+                };
 
-                    await dbContext.Students.AddAsync(student);
-                    await dbContext.SaveChangesAsync();
-                }
-                else
+                IdentityResult result = await userManager.CreateAsync(user, studentProfessorRegisterDTO.Password);
+
+                if (result.Succeeded)
                 {
-                    Professor professor = new Professor();
-                    professor.SSN = studentProfessorRegisterDTO.SSN;
-                    professor.Name = studentProfessorRegisterDTO.Name;
-                    professor.PhoneNumber = studentProfessorRegisterDTO.Phone;
-                    professor.BirthDate = studentProfessorRegisterDTO.BirthDate;
-                    professor.Gender = studentProfessorRegisterDTO.Gender;
-
-                    if (professor != null)
+                    if (studentProfessorRegisterDTO.Role == "Student")
                     {
+                        Student student = new Student
+                        {
+                            SSN = studentProfessorRegisterDTO.SSN,
+                            Name = studentProfessorRegisterDTO.Name,
+                            PhoneNumber = studentProfessorRegisterDTO.Phone,
+                            BirthDate = studentProfessorRegisterDTO.BirthDate,
+                            Gender = studentProfessorRegisterDTO.Gender,
+                            UserId = user.Id
+                        };
+
+                        await dbContext.Students.AddAsync(student);
+                        await dbContext.SaveChangesAsync();
+                    }
+                    else if (studentProfessorRegisterDTO.Role == "Professor")
+                    {
+                        Professor professor = new Professor
+                        {
+                            SSN = studentProfessorRegisterDTO.SSN,
+                            Name = studentProfessorRegisterDTO.Name,
+                            PhoneNumber = studentProfessorRegisterDTO.Phone,
+                            BirthDate = studentProfessorRegisterDTO.BirthDate,
+                            Gender = studentProfessorRegisterDTO.Gender,
+                            UserId = user.Id
+                        };
+
                         await dbContext.Professors.AddAsync(professor);
                         await dbContext.SaveChangesAsync();
                     }
 
-                    
+                    IdentityResult roleResult = await userManager.AddToRoleAsync(user, user.Role);
+
+                    if (roleResult.Succeeded)
+                    {
+                        return Ok("عملية التسجيل ناجحه");
+                    }
+                    else
+                    {
+                        // Optionally, delete the user if role assignment fails
+                        await userManager.DeleteAsync(user);
+                        return BadRequest(roleResult.Errors);
+                    }
                 }
-
-                IdentityResult result = await userManager.CreateAsync(user, studentProfessorRegisterDTO.Password);
-
-                IdentityResult roleResult = await userManager.AddToRoleAsync(user, user.Role);
-
-                if(!roleResult.Succeeded)
+                else
                 {
-                    return BadRequest(roleResult.Errors);
+                    return BadRequest(result.Errors);
                 }
-
-                if (result.Succeeded && roleResult.Succeeded)
-                {
-                    return Ok("عملية التسجيل ناجحه");
-                }
-
-                return BadRequest(ModelState);
-
             }
+
             return BadRequest(ModelState);
         }
+
 
 
 
@@ -103,47 +112,50 @@ namespace DentalHospital.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<IActionResult> ReceptionistRegister(ReceptionistRegisterDTO receptionistRegisterDTO)
         {
-            if (ModelState.IsValid == true)
+            if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser();
-
-                user.UserName = receptionistRegisterDTO.UserName;
-                user.Email = receptionistRegisterDTO.Email;
-
-                Receptionist receptionist = new Receptionist();
-                receptionist.Name = receptionistRegisterDTO.Name;
-                receptionist.PhoneNumber = receptionistRegisterDTO.Phone;
-                receptionist.BirthDate = receptionistRegisterDTO.BirthDate;
-                receptionist.SSN = receptionistRegisterDTO.SSN;
-
-                if (receptionist != null)
+                ApplicationUser user = new ApplicationUser
                 {
-                    await dbContext.Receptionists.AddAsync(receptionist);
-                    await dbContext.SaveChangesAsync();
-                }
-
-                
+                    UserName = receptionistRegisterDTO.UserName,
+                    Email = receptionistRegisterDTO.Email
+                };
 
                 IdentityResult result = await userManager.CreateAsync(user, receptionistRegisterDTO.Password);
 
-                IdentityResult roleResult = await userManager.AddToRoleAsync(user, "Receptionist");
-
-                if(!roleResult.Succeeded)
+                if (result.Succeeded)
                 {
-                    return BadRequest(roleResult.Errors);
-                }
+                    Receptionist receptionist = new Receptionist
+                    {
+                        Name = receptionistRegisterDTO.Name,
+                        PhoneNumber = receptionistRegisterDTO.Phone,
+                        BirthDate = receptionistRegisterDTO.BirthDate,
+                        SSN = receptionistRegisterDTO.SSN,
+                        userid = user.Id
+                    };
 
-                if (result.Succeeded && roleResult.Succeeded)
+                    await dbContext.Receptionists.AddAsync(receptionist);
+                    await dbContext.SaveChangesAsync();
+
+                    IdentityResult roleResult = await userManager.AddToRoleAsync(user, "Receptionist");
+
+                    if (roleResult.Succeeded)
+                    {
+                        return Ok("عملية التسجيل ناجحه");
+                    }
+                    else
+                    {
+                        await userManager.DeleteAsync(user);
+                        return BadRequest(roleResult.Errors);
+                    }
+                }
+                else
                 {
-                    return Ok("عملية التسجيل ناجحه");
+                    return BadRequest(result.Errors);
                 }
-
-                return BadRequest(ModelState);
             }
 
             return BadRequest(ModelState);
         }
-
 
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginDTO loginDTO)

@@ -3,6 +3,7 @@
     public class Professor
     {
         public int Id { get; set; }
+        public string UserId { get; set; } = string.Empty;
         public string SSN { get; set; } = string.Empty; 
         public int AdminId { get; set; } 
         public int ClinicId { get; set; } 

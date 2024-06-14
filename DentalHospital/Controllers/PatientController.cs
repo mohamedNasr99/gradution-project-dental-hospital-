@@ -26,6 +26,12 @@ namespace DentalHospital.Controllers
         {
             if(ModelState.IsValid == true)
             {
+                Patient? patientExist = await patientService.IsExist(reservationDTO.Name);
+                if(patientExist != null)
+                {
+                    return BadRequest("A patient with the same Name already exists.");
+                }
+
                 Patient? patient = await patientService.PatientRegister(reservationDTO);
 
                 if (patient != null)

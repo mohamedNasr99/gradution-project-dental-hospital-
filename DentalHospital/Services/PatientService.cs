@@ -74,5 +74,11 @@ namespace DentalHospital.Services
             return medicalReport;
         }
 
+        public async Task<Patient?> IsExist(string Name)
+        {
+            Patient? patient = await dbContext.Patients.FirstOrDefaultAsync(p => p.Name == Name);
+            return patient;
+        }
+
     }
 }

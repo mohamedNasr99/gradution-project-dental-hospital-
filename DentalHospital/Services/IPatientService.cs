@@ -7,5 +7,6 @@ namespace DentalHospital.Services
     {
         Task<Patient?> PatientRegister(ReservationDTO reservationDTO);
         Task<MedicalReport?> Reservation(string SNN);
+        Task<Patient?> IsExist(string Name);
     }
 }

@@ -61,6 +61,8 @@ namespace DentalHospital.Controllers
                             PhoneNumber = studentProfessorRegisterDTO.Phone,
                             BirthDate = studentProfessorRegisterDTO.BirthDate,
                             Gender = studentProfessorRegisterDTO.Gender,
+                            ClinicId = studentProfessorRegisterDTO.Clinic,
+
                             UserId = user.Id
                         };
 
@@ -76,6 +78,7 @@ namespace DentalHospital.Controllers
                             PhoneNumber = studentProfessorRegisterDTO.Phone,
                             BirthDate = studentProfessorRegisterDTO.BirthDate,
                             Gender = studentProfessorRegisterDTO.Gender,
+                            ClinicId = studentProfessorRegisterDTO.Clinic,
                             UserId = user.Id
                         };
 
@@ -169,6 +172,7 @@ namespace DentalHospital.Controllers
                     var claims = new List<Claim>();
                     claims.Add(new Claim(ClaimTypes.Name, user.UserName));
                     claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id));
+                    claims.Add(new Claim(ClaimTypes.PrimarySid, user.Id));
                     claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
 
                     var roles = await userManager.GetRolesAsync(user);

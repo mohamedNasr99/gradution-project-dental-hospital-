@@ -233,7 +233,7 @@ namespace DentalHospital.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StudentId")
+                    b.Property<int?>("StudentId")
                         .HasColumnType("int");
 
                     b.Property<string>("StudentSSN")
@@ -311,8 +311,12 @@ namespace DentalHospital.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AdminId")
+                    b.Property<int?>("AdminId")
                         .HasColumnType("int");
+
+                    b.Property<string>("AdminSSN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("DATE");
@@ -430,7 +434,7 @@ namespace DentalHospital.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AdminId")
+                    b.Property<int?>("AdminId")
                         .HasColumnType("int");
 
                     b.Property<string>("AdminSSN")
@@ -628,8 +632,7 @@ namespace DentalHospital.Migrations
                     b.HasOne("DentalHospital.Models.Student", "Student")
                         .WithMany("MedicalReports")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Patient");
 
@@ -640,9 +643,7 @@ namespace DentalHospital.Migrations
                 {
                     b.HasOne("DentalHospital.Models.Admin", "Admin")
                         .WithMany("Professors")
-                        .HasForeignKey("AdminId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AdminId");
 
                     b.HasOne("DentalHospital.Models.Clinic", "Clinic")
                         .WithMany("Professors")
@@ -670,9 +671,7 @@ namespace DentalHospital.Migrations
                 {
                     b.HasOne("DentalHospital.Models.Admin", "Admin")
                         .WithMany("Students")
-                        .HasForeignKey("AdminId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AdminId");
 
                     b.HasOne("DentalHospital.Data.ApplicationUser", "ApplicationUser")
                         .WithMany()

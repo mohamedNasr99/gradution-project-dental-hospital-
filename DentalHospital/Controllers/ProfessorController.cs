@@ -11,17 +11,17 @@ namespace DentalHospital.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles ="Professor")]
     public class ProfessorController : ControllerBase
     {
-        private readonly ProfessorService professorService;
+        private readonly IProfessorService service;
 
-        public ProfessorController(ProfessorService professorService)
+        public ProfessorController(IProfessorService service)
         {
-            this.professorService = professorService;
+            this.service = service;
         }
 
         [HttpGet("StudentsInSpecificClinic")]
-        public IActionResult StudentsInSpecificClinic()
+        public async Task<IActionResult> StudentsInSpecificClinic()
         {
-            return Ok(professorService.StudentsInSpecificClinic());
+            return Ok(await service.StudentsInSpecificClinic());
         }
 
 
@@ -30,7 +30,7 @@ namespace DentalHospital.Controllers
         {
             if (StudentName != null)
             {
-                var result = professorService.MedicalReportsOfStudent(StudentName);
+                var result = service.MedicalReportsOfStudent(StudentName);
 
                 if (result != null)
                 {
@@ -48,7 +48,7 @@ namespace DentalHospital.Controllers
         {
             if (code != null)
             {
-                var result = await professorService.MedicalReport(code);
+                var result = await service.MedicalReport(code);
 
                 if (result != null)
                 {

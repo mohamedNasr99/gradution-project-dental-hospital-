@@ -12,9 +12,9 @@ namespace DentalHospital.Models
         [RegularExpression(@"^\+?[0-9]*$", ErrorMessage = "Invalid phone number format")]
         public string PhoneNumber { get; set; } = string.Empty;
         
-        public DateTime BirthDate { get; set; } = new DateTime();
-        public List<Student> Students { get; set; } = new List<Student>();
-        public List<Professor> Professors { get; set; } = new List<Professor>();
+        public DateTime BirthDate { get; set; } 
+        public List<Student>? Students { get; set; }
+        public List<Professor>? Professors { get; set; } 
 
     }
 }

@@ -36,7 +36,10 @@ namespace DentalHospital.Controllers
 
                 if (patient != null)
                 {
-                    return Ok(patient.Code);
+                    return Ok(new
+                    {
+                        code = patient.Code
+                    });
                 }
                 return BadRequest("عملية التسجيل لم تنجح");
             }
@@ -68,7 +71,8 @@ namespace DentalHospital.Controllers
                                     return Ok(new
                                     {
                                         Code = medicalReport.Code,
-                                        Duration = "You are from 8 am to 11 am"
+                                        From = 8,
+                                        To = 11
                                     });
                                 }
                                 return BadRequest("من فضلك سجل بياناتك الاول ثم احجز");
@@ -81,7 +85,8 @@ namespace DentalHospital.Controllers
                                     return Ok(new
                                     {
                                         Code = medicalReport.Code,
-                                        Duration = "You are from 11 am to 2 pm"
+                                        From = 11,
+                                        To = 2
                                     });
                                 }
                                 return BadRequest("من فضلك سجل بياناتك الاول ثم احجز");

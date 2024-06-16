@@ -24,16 +24,28 @@ namespace DentalHospital.Services
 
         public async Task<List<string>> StudentsInSpecificClinic()
         {
-            var userid = accessor.HttpContext?.User.Claims.FirstOrDefault(u => u.Type.Equals(ClaimTypes.PrimarySid))!.Value;
-            var user = await userService.GetUserById(userid);
-            List<string> StudentNames = new List<string>();
-            var students = dbContext.Students.Where(s => s.ClinicId == user.Clinic);
-            foreach (var student in students)
+            var userId = accessor.HttpContext?.User.Claims.FirstOrDefault(u => u.Type == ClaimTypes.PrimarySid)?.Value;
+
+            if (string.IsNullOrEmpty(userId))
             {
-                StudentNames.Add(student.Name);
+                return new List<string>();
             }
-            return StudentNames;
+
+            var user = await userService.GetUserById(userId);
+
+            if (user == null || user.Clinic == null)
+            {
+                return new List<string>();
+            }
+
+            var studentNames = await dbContext.Students
+                                              .Where(s => s.ClinicId == user.Clinic)
+                                              .Select(s => s.Name)
+                                              .ToListAsync();
+
+            return studentNames;
         }
+
 
         public IQueryable<string>? MedicalReportsOfStudent(string StudentName)
         {

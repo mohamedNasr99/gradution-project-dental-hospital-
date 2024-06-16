@@ -10,7 +10,7 @@ namespace DentalHospital.Models
         public string Name { get; set; } = string.Empty; 
         public string Address { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty; 
-        public DateTime BirthDate { get; set; } = new DateTime();
-        public List<ApplicationUser> ApplicationUser { get; set; } = new List<ApplicationUser>(); 
+        public DateTime BirthDate { get; set; } 
+        public List<ApplicationUser>? ApplicationUser { get; set; } 
     }
 }

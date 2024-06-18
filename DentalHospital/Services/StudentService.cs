@@ -51,6 +51,7 @@ namespace DentalHospital.Services
             medicalReport.MedicalHistory = treatmentInDiagnosisDTO.MedicalHistory;
             medicalReport.DentalHistory = treatmentInDiagnosisDTO.DentalHistory;
             medicalReport.Diagnosis = treatmentInDiagnosisDTO.Diagnosis;
+            medicalReport.Clinic = treatmentInDiagnosisDTO.Clinic;
 
             _dbContext.MedicalReports.Update(medicalReport);
            int result = _dbContext.SaveChanges();
@@ -143,6 +144,16 @@ namespace DentalHospital.Services
         {
             var clinics = await _dbContext.Clinics.ToListAsync();
             return clinics.Select(c => c.Name);
+        }
+
+        public async Task<int> CheckPatient(string Code)
+        {
+           var report = await _dbContext.MedicalReports.FirstOrDefaultAsync(m => m.Code == Code);
+            if (report != null)
+            {
+                return 1;
+            }
+            return 0;
         }
 
         

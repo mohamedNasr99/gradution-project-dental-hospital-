@@ -12,5 +12,7 @@ namespace DentalHospital.DTOs
         public string DentalHistory { get; set; } = string.Empty;
         [Required]
         public string Diagnosis { get; set; } = string.Empty;
+        [Required]
+        public string Clinic { get; set; } = string.Empty;
     }
 }

@@ -12,7 +12,6 @@ namespace DentalHospital.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Student")]
     public class StudentController : ControllerBase
     {
         private readonly IStudentService _studentService;
@@ -23,7 +22,7 @@ namespace DentalHospital.Controllers
         }
 
         [HttpPatch("AddTreatment")]
-        [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme, Roles ="Student")]
+        [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme, Roles ="Clinic")]
         public IActionResult AddTreatment(TreatmentDTO treatmentDTO)
         {
             if (ModelState.IsValid == true)
@@ -43,6 +42,7 @@ namespace DentalHospital.Controllers
 
 
         [HttpPatch("TreatmentInDiagnosis")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Student")]
         public async Task<IActionResult> TreatmentInDiagnosis(TreatmentInDiagnosisDTO treatmentInDiagnosisDTO)
         {
             if (ModelState.IsValid == true)
@@ -61,6 +61,7 @@ namespace DentalHospital.Controllers
         }
 
         [HttpPatch("ConvertToCinic")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Student")]
         public IActionResult ConvertToCinic(ConvertToClinicDTO convertToClinicDTO)
         {
             if (ModelState.IsValid == true)
@@ -74,6 +75,18 @@ namespace DentalHospital.Controllers
                 return BadRequest("There is no Medical Report with this code");
             }
             return BadRequest(ModelState);
+        }
+
+        [HttpGet("CheckPatient")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Student")]
+        public async Task<IActionResult> CheckPatient(string Code)
+        {
+            int res = await _studentService.CheckPatient(Code);
+            if (res == 1)
+            {
+                return Ok("Ok this code in Db");
+            }
+            return BadRequest("Obs this not is in Db");
         }
 
         [HttpPost("AddSession")]

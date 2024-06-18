@@ -7,7 +7,7 @@ namespace DentalHospital.DTOs
     public class ReservationDTO
     {
         [Required]
-        [RegularExpression("^(?:[A-Za-z]+\\s+){3}(?:[A-Za-z]+\\s*)+$", ErrorMessage ="من فضلك ادخل اسمك رباعي")]
+        [RegularExpression(@"^(?=.{1,40}$)(\p{L}[\p{L}\p{M}\s'’.-]*\s){3}\p{L}[\p{L}\p{M}\s'’.-]*$", ErrorMessage = "ادخل الاسم رباعي")]
         public string Name { get; set; } = string.Empty;
         [Required]
         [Display(Name = "Patient SSN")]

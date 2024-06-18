@@ -69,6 +69,23 @@ namespace DentalHospital.Controllers
                         await dbContext.Students.AddAsync(student);
                         await dbContext.SaveChangesAsync();
                     }
+                    else if (studentProfessorRegisterDTO.Role == "Clinic")
+                    {
+                        Student student = new Student
+                        {
+                            SSN = studentProfessorRegisterDTO.SSN,
+                            Name = studentProfessorRegisterDTO.Name,
+                            PhoneNumber = studentProfessorRegisterDTO.Phone,
+                            BirthDate = studentProfessorRegisterDTO.BirthDate,
+                            Gender = studentProfessorRegisterDTO.Gender,
+                            ClinicId = studentProfessorRegisterDTO.Clinic,
+
+                            UserId = user.Id
+                        };
+
+                        await dbContext.Students.AddAsync(student);
+                        await dbContext.SaveChangesAsync();
+                    }
                     else if (studentProfessorRegisterDTO.Role == "Professor")
                     {
                         Professor professor = new Professor

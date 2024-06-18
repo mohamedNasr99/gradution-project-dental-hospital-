@@ -1,4 +1,6 @@
-﻿namespace DentalHospital.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace DentalHospital.Models
 {
     public class Professor
     {
@@ -10,7 +12,8 @@
         public string Gender { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty; 
-        public string PhoneNumber { get; set; } = string.Empty; 
+        public string PhoneNumber { get; set; } = string.Empty;
+        [Column(TypeName = "date")]
         public DateTime BirthDate { get; set; }
         public Clinic? Clinic { get; set; } 
         public Admin? Admin { get; set; }

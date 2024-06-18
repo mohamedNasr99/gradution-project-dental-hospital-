@@ -1,4 +1,5 @@
 ﻿using DentalHospital.Data;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DentalHospital.Models
 {
@@ -9,7 +10,8 @@ namespace DentalHospital.Models
         public string SSN { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty; 
         public string Address { get; set; } = string.Empty;
-        public string PhoneNumber { get; set; } = string.Empty; 
+        public string PhoneNumber { get; set; } = string.Empty;
+        [Column(TypeName = "date")]
         public DateTime BirthDate { get; set; } 
         public List<ApplicationUser>? ApplicationUser { get; set; } 
     }

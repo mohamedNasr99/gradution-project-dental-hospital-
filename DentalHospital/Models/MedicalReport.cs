@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DentalHospital.Models
 {
@@ -18,6 +19,7 @@ namespace DentalHospital.Models
         public string Diagnosis { get; set; } = string.Empty; 
         public string Description { get; set; } = string.Empty; 
         public string Treatment { get; set; } = string.Empty;
+        [Column(TypeName = "date")]
         public DateTime dateTime { get; set; }
         public Patient? Patient { get; set; } 
         public Student? Student { get; set; } 

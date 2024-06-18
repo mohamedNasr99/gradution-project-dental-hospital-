@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DentalHospital.DTOs
 {
@@ -36,6 +37,7 @@ namespace DentalHospital.DTOs
         public string Phone { get; set; } = string.Empty;
         [Required]
         [Display(Name = "Birth Date")]
+        [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; } = new DateTime();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 
 namespace DentalHospital.DTOs
@@ -14,7 +15,7 @@ namespace DentalHospital.DTOs
         public string PatientSSN { get; set; } = string.Empty;
         [Required]
         [Display(Name = "Birth Date")]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; } = new DateTime();
         [Required]
         [Display(Name ="Patient number")]

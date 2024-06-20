@@ -155,7 +155,7 @@ namespace DentalHospital.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Admins");
+                    b.ToTable("Admins", (string)null);
                 });
 
             modelBuilder.Entity("DentalHospital.Models.Cases", b =>
@@ -171,7 +171,7 @@ namespace DentalHospital.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cases");
+                    b.ToTable("Cases", (string)null);
                 });
 
             modelBuilder.Entity("DentalHospital.Models.Clinic", b =>
@@ -189,7 +189,7 @@ namespace DentalHospital.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clinics");
+                    b.ToTable("Clinics", (string)null);
                 });
 
             modelBuilder.Entity("DentalHospital.Models.MedicalReport", b =>
@@ -245,7 +245,7 @@ namespace DentalHospital.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("dateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.HasKey("Id");
 
@@ -253,7 +253,7 @@ namespace DentalHospital.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("MedicalReports");
+                    b.ToTable("MedicalReports", (string)null);
                 });
 
             modelBuilder.Entity("DentalHospital.Models.Patient", b =>
@@ -296,7 +296,7 @@ namespace DentalHospital.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Patients");
+                    b.ToTable("Patients", (string)null);
                 });
 
             modelBuilder.Entity("DentalHospital.Models.Professor", b =>
@@ -350,7 +350,7 @@ namespace DentalHospital.Migrations
 
                     b.HasIndex("ClinicId");
 
-                    b.ToTable("Professors");
+                    b.ToTable("Professors", (string)null);
                 });
 
             modelBuilder.Entity("DentalHospital.Models.Receptionist", b =>
@@ -386,7 +386,7 @@ namespace DentalHospital.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Receptionists");
+                    b.ToTable("Receptionists", (string)null);
                 });
 
             modelBuilder.Entity("DentalHospital.Models.Session", b =>
@@ -419,7 +419,7 @@ namespace DentalHospital.Migrations
 
                     b.HasIndex("MedicalReportId");
 
-                    b.ToTable("Sessions");
+                    b.ToTable("Sessions", (string)null);
                 });
 
             modelBuilder.Entity("DentalHospital.Models.Student", b =>
@@ -478,7 +478,7 @@ namespace DentalHospital.Migrations
 
                     b.HasIndex("ClinicId");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -108,13 +108,22 @@ namespace DentalHospital.Services
             return await query.ToListAsync();
         }
 
-        public async Task<IEnumerable<string>> Cases()
+        public async Task<IQueryable<string>> Cases()
         {
-            var userid = _accessor.HttpContext?.User.Claims.FirstOrDefault(u => u.Type.Equals(ClaimTypes.PrimarySid))!.Value;
+            var userid = _accessor.HttpContext?.User.Claims.FirstOrDefault(u => u.Type.Equals(ClaimTypes.PrimarySid))?.Value;
+
+            if (userid == null)
+            {
+                throw new InvalidOperationException("User ID claim not found.");
+            }
+
             var user = await _userService.GetUserById(userid);
-            var reports = _dbContext.MedicalReports.Where(m => m.StudentId == int.Parse(userid));
+
+            var reports = _dbContext.MedicalReports.Where(m => m.StudentSSN == user.SSN);
+
             return reports.Select(m => m.Code);
         }
+
 
         public IEnumerable<DateTime> SessionsDates(string MedicalCode)
         {

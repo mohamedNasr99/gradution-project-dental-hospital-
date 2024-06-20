@@ -126,9 +126,10 @@ namespace DentalHospital.Controllers
         }
 
         [HttpGet("Cases")]
-        public IActionResult Cases()
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Clinic")]
+        public async Task<IActionResult> Cases()
         {
-            var result = _studentService.Cases();
+            var result = await _studentService.Cases();
 
             if (result != null)
             {

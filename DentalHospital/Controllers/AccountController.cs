@@ -45,7 +45,8 @@ namespace DentalHospital.Controllers
                     Email = studentProfessorRegisterDTO.Email,
                     Clinic = studentProfessorRegisterDTO.Clinic,
                     Role = studentProfessorRegisterDTO.Role,
-                    Round = studentProfessorRegisterDTO.Round
+                    Round = studentProfessorRegisterDTO.Round,
+                    SSN = studentProfessorRegisterDTO.SSN
                 };
 
                 IdentityResult result = await userManager.CreateAsync(user, studentProfessorRegisterDTO.Password);

@@ -51,7 +51,7 @@ namespace DentalHospital.Services
         {
             var student = dbContext.Students.FirstOrDefault(s => s.Name == StudentName);
 
-            var reports = dbContext.MedicalReports.Where(m => m.StudentId == student.Id);
+            var reports = dbContext.MedicalReports.Where(m => m.StudentSSN == student.SSN);
 
             if (reports != null)
             {

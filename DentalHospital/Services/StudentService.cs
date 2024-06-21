@@ -120,8 +120,9 @@ namespace DentalHospital.Services
             var user = await _userService.GetUserById(userid);
 
             var reports = _dbContext.MedicalReports.Where(m => m.StudentSSN == user.SSN);
+            var reportsnofinish = reports.Where(r => r.IsFinish == false);
 
-            return reports.Select(m => m.Code);
+            return reportsnofinish.Select(m => m.Code);
         }
 
 
@@ -165,7 +166,30 @@ namespace DentalHospital.Services
             return 0;
         }
 
-        
+        public async Task<MedicalReport?> GetMedicalReport(string Code)
+        {
+            var report = await _dbContext.MedicalReports.FirstOrDefaultAsync(m => m.Code == Code);
+            if (report != null)
+            {
+                return report;
+            }
+            return null;
+        }
+
+        public async Task<int> CheckFinish(string Code)
+        {
+            var report = await _dbContext.MedicalReports.FirstOrDefaultAsync(m => m.Code == Code);
+            report.IsFinish = true;
+             var res = await _dbContext.SaveChangesAsync();
+            if (res == 1)
+            {
+                return 1;
+            }
+            return 0;
+
+        }
+
+
 
     }
 }

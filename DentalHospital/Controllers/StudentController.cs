@@ -172,5 +172,34 @@ namespace DentalHospital.Controllers
         {
             return Ok(await _studentService.clinics());
         }
+
+        [HttpGet("GetDiagnosis")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Clinic")]
+        public async Task<IActionResult> GetDiagnosis(string code)
+        {
+            var res = await _studentService.GetMedicalReport(code);
+            if (res != null)
+            {
+                return Ok(new
+                {
+                    medicalHistory = res.MedicalHistory,
+                    dentalHistory = res.DentalHistory,
+                    diagnosis = res.Diagnosis
+                });
+            }
+            return BadRequest("no report with this code");
+        }
+
+        [HttpPatch("CheckFinish")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Clinic")]
+        public async Task<IActionResult> CheckFinish(string code)
+        {
+            var res = await _studentService.CheckFinish(code);
+            if (res == 1)
+            {
+                return Ok("Ok this patient is finished");
+            }
+            return BadRequest("Finishing process is failed");
+        }
     }
 }

@@ -6,6 +6,7 @@ namespace DentalHospital.Models
     public class MedicalReport
     {
         public int Id { get; set; }
+        public bool IsFinish { get; set; }
         public string Code { get; set; } = string.Empty; 
         public int PatientId { get; set; }
         public string PatientSSN { get; set; } = string.Empty;

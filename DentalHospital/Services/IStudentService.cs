@@ -15,6 +15,8 @@ namespace DentalHospital.Services
         Task<SessionReturnDTO> SessionData(DateTime date);
         Task<IEnumerable<string>> clinics();
         Task<int> CheckPatient(string Code);
+        Task<MedicalReport?> GetMedicalReport(string Code);
+        Task<int> CheckFinish(string code);
 
     }
 }

@@ -17,7 +17,9 @@ namespace DentalHospital.Services
 
         public async Task<Patient?> PatientRegister(ReservationDTO reservationDTO)
         {
-            string code = GenerateUniqueCode();
+
+            var counter = dbContext.Patients.Count() + 1;
+            var codenumber = $"{counter:00}24{DateTime.Now.Month:00}{DateTime.Now.Day:00}";
 
             Patient patient = new Patient();
             patient.Name = reservationDTO.Name;
@@ -26,7 +28,7 @@ namespace DentalHospital.Services
             patient.PhoneNumber = reservationDTO.PatientNumber;
             patient.Gender = reservationDTO.Gender;
             patient.CreatedAt = DateTime.Now;
-            patient.Code = code;
+            patient.Code = codenumber;
 
             await dbContext.Patients.AddAsync(patient);
             await dbContext.SaveChangesAsync();
@@ -36,21 +38,6 @@ namespace DentalHospital.Services
 
         }
 
-        private string GenerateUniqueCode()
-        {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            Random random = new Random();
-            string code;
-
-            do
-            {
-                code = new string(Enumerable.Repeat(chars, 8) 
-                    .Select(s => s[random.Next(s.Length)]).ToArray());
-            }
-            while (dbContext.Patients.Any(p => p.Code == code)); 
-
-            return code;
-        }
 
         public async Task<MedicalReport?> Reservation(string SNN)
         {
@@ -61,10 +48,12 @@ namespace DentalHospital.Services
                 return null;
             }
 
-            string code = GenerateUniqueCode();
+            var counter = dbContext.MedicalReports.Where(m => m.dateTime.Day == DateTime.Now.Day).Count() + 1;
+            var codenumber = $"{counter:00}24{DateTime.Now.Month:00}{DateTime.Now.Day:00}";
+
             MedicalReport medicalReport = new MedicalReport();
             medicalReport.PatientSSN = patient.SSN;
-            medicalReport.Code = code;
+            medicalReport.Code = codenumber;
             medicalReport.PatientId = patient.Id;
             medicalReport.dateTime = DateTime.Now;
 

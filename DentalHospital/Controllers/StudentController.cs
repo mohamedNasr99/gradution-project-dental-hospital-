@@ -78,7 +78,7 @@ namespace DentalHospital.Controllers
         }
 
         [HttpGet("CheckPatient")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Student")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Student, Clinic")]
         public async Task<IActionResult> CheckPatient(string Code)
         {
             int res = await _studentService.CheckPatient(Code);

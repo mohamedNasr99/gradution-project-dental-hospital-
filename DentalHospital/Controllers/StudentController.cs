@@ -43,7 +43,7 @@ namespace DentalHospital.Controllers
 
         [HttpPatch("TreatmentInDiagnosis")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Student")]
-        public async Task<IActionResult> TreatmentInDiagnosis(TreatmentInDiagnosisDTO treatmentInDiagnosisDTO)
+        public async Task<IActionResult> TreatmentInDiagnosis([FromQuery] TreatmentInDiagnosisDTO treatmentInDiagnosisDTO)
         {
             if (ModelState.IsValid == true)
             {
@@ -62,7 +62,7 @@ namespace DentalHospital.Controllers
 
         [HttpPatch("ConvertToCinic")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Student")]
-        public IActionResult ConvertToCinic(ConvertToClinicDTO convertToClinicDTO)
+        public IActionResult ConvertToCinic([FromQuery]ConvertToClinicDTO convertToClinicDTO)
         {
             if (ModelState.IsValid == true)
             {
@@ -77,7 +77,7 @@ namespace DentalHospital.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpGet("CheckPatient")]
+        [HttpGet("CheckPatient/{Code}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Student, Clinic")]
         public async Task<IActionResult> CheckPatient(string Code)
         {
@@ -107,7 +107,7 @@ namespace DentalHospital.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpGet("Search")]
+        [HttpGet("Search/{name}")]
         public async Task<IActionResult> Search(string name)
         {
             if (name != null)
@@ -138,7 +138,7 @@ namespace DentalHospital.Controllers
             return NotFound("لا يوجد تقارير");
         }
 
-        [HttpGet("SessionsDates")]
+        [HttpGet("SessionsDates/{MedicalCode}")]
         public IActionResult SessionsDates(string MedicalCode)
         {
             if(MedicalCode != null)
@@ -154,7 +154,7 @@ namespace DentalHospital.Controllers
             return BadRequest("ادخل الكود");
         }
 
-        [HttpGet("SessionData")]
+        [HttpGet("SessionData/{date}")]
         public async Task<IActionResult> SessionData(DateTime date)
         {
             SessionReturnDTO session = await _studentService.SessionData(date);
@@ -173,7 +173,7 @@ namespace DentalHospital.Controllers
             return Ok(await _studentService.clinics());
         }
 
-        [HttpGet("GetDiagnosis")]
+        [HttpGet("GetDiagnosis/{code}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Clinic")]
         public async Task<IActionResult> GetDiagnosis(string code)
         {
@@ -190,11 +190,11 @@ namespace DentalHospital.Controllers
             return BadRequest("no report with this code");
         }
 
-        [HttpPatch("CheckFinish")]
+        [HttpPatch("CheckFinish/{code}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Clinic")]
-        public async Task<IActionResult> CheckFinish(string code)
+        public  IActionResult CheckFinish(string code)
         {
-            var res = await _studentService.CheckFinish(code);
+            var res =  _studentService.CheckFinish(code);
             if (res == 1)
             {
                 return Ok("Ok this patient is finished");

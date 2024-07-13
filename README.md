@@ -8,7 +8,9 @@ optimize workflow.
 
 ## Content 
   * [System Users](#system-users)
+  * [System Features](#system-features)
   * [Abstract](#abstract)
+  * [Database Tables](#database-tables)
 
 ## System Users
   * Admin
@@ -16,6 +18,84 @@ optimize workflow.
   * Student
   * Patient
   * Receptionist
+
+## System Features
+  * Patient System
+    * Patient Register
+      * The patient register in the system by filling his 
+  personal data before reservation in the first time, the 
+  data is saved in database.
+    * Patient Reserve
+      * The DUHS allow the patient reserve by his national 
+   id to receive a specific code and appointment from 
+   the system.
+    * Patient code
+      * The DUHS shall allow patient receives a specific 
+   code never repeated after reservation and the doctor 
+   use this code to find patient's data
+    * Reserve appointment
+      * The DUHS shall allow patient take appointment 
+    based on his turn in submit.
+    * Patient print
+      * The DUHS allows the patient to print his specific 
+    code and the appointment
+ * Admin System
+   * Admin login
+     * When admin is admitted in login. The data is 
+  checked if admin already registered with the system 
+  if his/her ID is entered into the computer.
+    * Enter number of patients
+      * The DUHS shall allow admin can enter the number 
+   of patients that can reserve in a day
+   * Add doctor
+     * The DUHS shall allow admin to add doctor to 
+   clinic in the system.
+   * Add prof
+     * The DUHS shall allow admin to add prof to his 
+   specific clinic in the system.
+   * Add receptionist
+     * The DUHS shall allow admin to add receptionist in 
+   the system.
+   * Assign ID
+     * The DUHS shall allow admin to give (doctor / prof 
+   / receptionist) ID. This ID shall be used by them 
+   throughout their stay in university hospital.
+  * Doctor System
+    * Doctor login
+      * When doctor is admitted in login. The data is 
+   checked if doctor already registered with the system 
+   if his/her ID is entered into the computer.
+    * Patient description
+      * When the patient comes in his appointment, the 
+  doctor enters his code to look at the patient' 
+  description.
+    * Write examination
+      * The DUHS shall allow the doctor to write the 
+   examination of patient.
+    * Continue examination
+      * The DUHS shall allow another doctor to continue 
+   the examination after sending the patient to another 
+   clinic.
+    * Prescribe treatment
+      * The DUHS shall allow doctor to prescribe the 
+   treatment after the final examination.
+  * Professor System
+    * Prof login
+      * When prof is admitted in login. The data is checked 
+  if prof already registered with the system if his/her 
+  ID is entered into the computer.
+    * View the record
+      * The DUHS shall allow staff to view doctors’ record 
+  to look at their work.
+   * Receptionist System
+     * Receptionist login
+       * When receptionist is admitted in login. The data is 
+  checked if receptionist already registered with the 
+  system if his/her ID is entered into the computer.
+     * Confirm the reservation
+       * The DUHS shall allow receptionist to confirm 
+  patient’s reservation and view them.
+
 
 ## Abstract 
   * Patient
@@ -41,4 +121,18 @@ optimize workflow.
       * Confirm the reservation of patient and The DUHS shall allow receptionist to confirm 
 patient’s reservation and view them.
 
+## Database Tables 
+  * Admin
+  * Professor
+  * Student
+  * Patient
+  * MedicalReport
+  * Receptionist
+  * Session
+  * Cases
+  * Clinic
+  * Identity Tables
+
+## Database Schema
+ ![dbschema](Screenshots/db schemaa.png)
 

@@ -11,6 +11,10 @@ optimize workflow.
   * [System Features](#system-features)
   * [Abstract](#abstract)
   * [Database Tables](#database-tables)
+  * [Technologies](#technologies)
+  * [Database Schema](#database-schema)
+  * [Configuraion](#configuration)
+  * [Installation](#installation)
 
 ## System Users
   * Admin
@@ -133,6 +137,49 @@ patient’s reservation and view them.
   * Clinic
   * Identity Tables
 
+## Technologies 
+  * Asp.net core 6 web api
+  * Entity Framework Core
+  * Linq
+  * Sql Server
+  * DTOs
+  * Repository Pattern
+  * Dependency injection
+  * AspNetCore.Identity: for authentication and authorization.
+  * JWT: as token-based authentication.
+
 ## Database Schema
- ![dbschema](Screenshots/db schemaa.png)
+ ![dbschema](Screenshots/dbschema.png)
+
+## Configuration 
+``` c#
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnectionString": "Data Source=DentalHospital.mssql.somee.com;Database=DentalHospital;User id=mohamednasr9_SQLLogin_1;pwd=fjl3lsiuhw;Connect Timeout=30;Encrypt=False;"
+  },
+  "JWT": {
+    "Issuer": "http://localhost:5109",
+    "Audience": "http://localhost:4200",
+    "Key": "StrOnGKeYSecRETKeY"
+  }
+}
+```
+
+## Installation
+  1. Clone Repo
+     ```bash
+     git clone https://github.com/mohamedNasr99/gradution-project-dental-hospital-.git
+     ```
+  2. Restore Packages
+      ```bash
+      git restore
+      ```
+     
 

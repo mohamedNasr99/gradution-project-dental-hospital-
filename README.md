@@ -15,6 +15,7 @@ optimize workflow.
   * [Database Schema](#database-schema)
   * [Configuraion](#configuration)
   * [Installation](#installation)
+  * [Publish](#publish)
 
 ## System Users
   * Admin
@@ -182,4 +183,7 @@ patient’s reservation and view them.
       git restore
       ```
      
-
+## Publish
+```link
+http://dentalhospital.somee.com/swagger/index.html
+```
